@@ -13,7 +13,7 @@ def load_users():
 
     print "Users"
 
-    for i, row in enumerate(open("seed_data/users.csv")):
+    for row in open("seed_data/users.csv"):
         row = row.rstrip()
         id, fname, lname, email, password = row.split(",")
 
@@ -26,10 +26,6 @@ def load_users():
         # Add to session so it will be stored!
         db.session.add(user)
 
-        # Show progress
-        if i % 100 == 0:
-            print i
-
     # Commit above work
     db.session.commit()
 
@@ -41,7 +37,7 @@ def load_pin_types():
 
     print "Pin Types"
 
-    for i, row in enumerate(open("seed_data/pin_types.csv")):
+    for row in open("seed_data/pin_types.csv"):
         row = row.rstrip()
         id, description = row.split(",")
 
@@ -60,11 +56,16 @@ def load_locations():
 
     print "Locations"
 
-    for i, row in enumerate(open("seed_data/locations.csv")):
-        row = row.rstrip()
-        id, name, city, state, country, latitude, longitude = row.split(",")
+    for row in open("seed_data/locations.csv"):
+        row = row.rstrip().split(",")
 
-        location = Location(id=id, 
+        for i, element in enumerate(row):
+            if element == "":
+                row[i] = None
+
+        id, name, city, state, country, latitude, longitude = row
+
+        locations = Location(id=id, 
                             name=name,
                             city=city,
                             state=state,
@@ -72,7 +73,7 @@ def load_locations():
                             latitude=latitude,
                             longitude=longitude)
 
-        db.session.add(location)
+        db.session.add(locations)
 
     db.session.commit()
 
@@ -80,13 +81,16 @@ def load_locations():
 def load_pins():
     """Load pins from pins.csv into database."""
 
-    Pin.query.delete()
-
     print "Pins"
 
-    for i, row in enumerate(open("seed_data/pins.csv")):
-        row = row.rstrip()
-        id, user_id, pin_type_id, location_id, visits, year = row.split(",")
+    for row in open("seed_data/pins.csv"):
+        row = row.rstrip().split(",")
+        
+        for i, element in enumerate(row):
+            if element == "":
+                row[i] = None
+
+        id, user_id, pin_type_id, location_id, visits, year = row
 
         pins = Pin(id=id, 
                    user_id=user_id,
@@ -113,12 +117,42 @@ def set_val_user_id():
     db.session.commit()
 
 
+def set_val_location_id():
+    """Set value for the next location_id after seeding database"""
+
+    # For loop? Get the Max user_id in the database
+    result = db.session.query(func.max(Location.id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('locations_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+def set_val_pin_id():
+    """Set value for the next pin_id after seeding database"""
+
+    # For loop? Get the Max user_id in the database
+    result = db.session.query(func.max(Pin.id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('pins_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
+    
+    Pin.query.delete()
 
-    load_users()
     load_pin_types()
+    load_users()
     load_locations()
     load_pins()
+    
     set_val_user_id()
+    set_val_location_id()
+    set_val_pin_id()
