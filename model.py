@@ -54,7 +54,7 @@ class Location(db.Model):
     def __repr__(self):
         """Provide helpful representation of location info when printed."""
 
-        l = "<Location id={} name={} city={} country={} visits={} year={}>"
+        l = "<Location id={} name={} city={} country={} latitude={} longitude={}>"
         return l.format(self.id, self.name, self.city, self.country,
             self.latitude, self.longitude)
 
@@ -68,8 +68,8 @@ class Pin(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pin_type_id = db.Column(db.Integer, db.ForeignKey('pin_types.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    visits = db.Column(db.Integer, nullable=True)
     year = db.Column(db.Integer, nullable=True )
+    visits = db.Column(db.Integer, nullable=True)
 
 
     # Define relationship to user 
@@ -88,9 +88,9 @@ class Pin(db.Model):
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""
         
-        p = "<Pins id={} user_id={} pin_type_id={} location_id={} visits={} year={}>"
+        p = "<Pins id={} user_id={} pin_type_id={} location_id={} year={} visits={}>"
         return p.format(self.id, self.user_id, self.pin_type_id,
-            self.location_id, self.visits, self.year)
+            self.location_id, self.year, self.visits)
 
 
 #Helper functions

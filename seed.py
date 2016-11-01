@@ -90,14 +90,15 @@ def load_pins():
             if element == "":
                 row[i] = None
 
-        id, user_id, pin_type_id, location_id, visits, year = row
+        id, user_id, pin_type_id, location_id, year, visits = row
 
         pins = Pin(id=id, 
                    user_id=user_id,
                    pin_type_id=pin_type_id,
                    location_id=location_id,
-                   visits=visits,
-                   year=year)
+                   year=year,
+                   visits=visits
+                   )
 
         db.session.add(pins)
 
