@@ -46,6 +46,7 @@ class Location(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(35), nullable=False)
     city = db.Column(db.String(35), nullable=False)
+    state = db.Column(db.String(35), nullable=True)
     country = db.Column(db.String(35), nullable=False)
     latitude = db.Column(db.Float, nullable=True)
     longitude = db.Column(db.Float, nullable=True)
