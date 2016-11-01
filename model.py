@@ -47,15 +47,15 @@ class Location(db.Model):
     name = db.Column(db.String(35), nullable=False)
     city = db.Column(db.String(35), nullable=False)
     country = db.Column(db.String(35), nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    
     def __repr__(self):
         """Provide helpful representation of location info when printed."""
 
-        l = "<Location id={} name={} city={} country={} latitude={} longitude={}>"
+        l = "<Location id={} name={} city={} country={} visits={} year={}>"
         return l.format(self.id, self.name, self.city, self.country,
-            self.latitude, self.longitude)
+            self.visits, self.year)
 
 
 class Pin(db.Model):
@@ -67,6 +67,22 @@ class Pin(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pin_type_id = db.Column(db.Integer, db.ForeignKey('pin_types.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    visits = db.Column(db.Integer, nullable=True)
+    year = db.Column(db.Integer, nullable=True )
+
+
+    # Define relationship to user 
+    user = db.relationship("User",
+                           backref=db.backref("pins", order_by=id))
+
+    # Define relationship to pin type
+    pin_type = db.relationship("PinType",
+                            backref=db.backref("pins", order_by=id))
+
+    # Define relationship to location
+    location = db.relationship("Location",
+                           backref=db.backref("pins", order_by=id))
+
 
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""

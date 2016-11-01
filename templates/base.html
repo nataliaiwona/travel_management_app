@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <title>Travel Management Application</title>
+</head>
+<body>
+
+Interactive Travel Diary
+
+{% if "user_id" in session %}
+    <a href="/logout">Logout</a>
+{% else %}
+    <a href="/login">Login</a>
+{% endif %}
+
+<hr>
+
+{% for flash in get_flashed_messages() %}
+  {{ flash }}
+{% endfor %}
+
+{% block content %}
+    Put your body here.
+{% endblock %}
+
+
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="/static/js/index.js"></script>
+
+</body>
+</html>
