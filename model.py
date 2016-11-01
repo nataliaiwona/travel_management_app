@@ -19,7 +19,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation of user info when printed."""
 
-        return "<User id={} {} {} email={}".format(self.id,
+        return "<User id={} {} {} email={}>".format(self.id,
             self.fname, self.lname, self.email)
 
 
@@ -34,7 +34,7 @@ class PinType(db.Model):
     def __repr__(self):
         """Provide helpful representation of pin type info when printed."""
 
-        return "<Pin type id={} description={}".format(self.id,
+        return "<Pin type id={} description={}>".format(self.id,
             self.description)
 
 
@@ -56,7 +56,7 @@ class Location(db.Model):
 
         l = "<Location id={} name={} city={} country={} visits={} year={}>"
         return l.format(self.id, self.name, self.city, self.country,
-            self.visits, self.year)
+            self.latitude, self.longitude)
 
 
 class Pin(db.Model):
@@ -88,38 +88,9 @@ class Pin(db.Model):
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""
         
-        p = "<Pins id={} user_id={} pin_type_id={} location_id={}>"
+        p = "<Pins id={} user_id={} pin_type_id={} location_id={} visits={} year={}>"
         return p.format(self.id, self.user_id, self.pin_type_id,
-            self.location_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            self.location_id, self.visits, self.year)
 
 
 #Helper functions
@@ -129,7 +100,7 @@ def connect_to_db(app):
 
     # Configure to use PostgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///travels'
-    
+   
     # app.config['SQLAlCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
