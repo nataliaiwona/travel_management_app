@@ -8,7 +8,9 @@
 Interactive Travel Diary
 
 {% if "user_id" in session %}
+    <a href="/user_homepage">Your Map</a>
     <a href="/logout">Logout</a>
+
 {% else %}
     <a href="/login">Login</a>
     <a href="/signup">Sign Up!</a>

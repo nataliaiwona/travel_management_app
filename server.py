@@ -14,6 +14,7 @@ app.secret_key = "MEMORY"
 
 # Raises and error for when you use an undefined variable in Jinja2. 
 app.jinja_env.undefined = StrictUndefined
+app.jinja_env.auto_reload = True
 
 
 @app.route('/')
@@ -52,7 +53,7 @@ def signup_process():
 def login_form():
     """Show login form."""
 
-    return render_template("login_form.html")
+    return render_template("login_form.html", loggingin=True)
 
 
 @app.route('/login', methods=['POST'])
@@ -96,18 +97,33 @@ def user_homepage():
     user_id = session.get("user_id")
 
     if user_id:
-        flash("A map will go here!")
-
         user = User.query.get(user_id)
-        print user
         # need to access user object    
         # query for user info - aka existing pins
-
     else:
         flash("Please log in to see your map.")
         return redirect("/login")
 
     return render_template("user_homepage.html")
+
+@app.route('/add_pins')
+def add_pins():
+    """Allow user to add pins to map!"""
+
+    print "Add Pins to Map"
+
+    user_id = session.get("user_id")
+
+    if user_id:
+        user=User.query.get(user_id)
+    else:
+        flash("Please log in to add pins to your map.")
+        return redirect("/login")
+
+    return render_template("add_pins.html")
+
+
+
 
 if __name__ == "__main__":
     # Set debug=True here, since it has to be True at the point
