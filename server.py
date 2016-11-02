@@ -45,7 +45,7 @@ def signup_process():
     db.session.commit()
 
     flash("Thanks for signing up, {}! Bon Voyage!".format(fname))
-    return redirect("/user_homepage/{}".format(new_user.id))
+    return redirect("/user_homepage")
 
 
 @app.route('/login', methods=['GET'])
@@ -72,45 +72,50 @@ def login_process():
         flash("Incorrect password")
         return redirect("/login")
 
-    session["user_id"] = user.user_id
+    session["user_id"] = user.id
 
-    flash("Logged in")
-   # return redirect("/TKTK/{}".format(user.id))
+    flash("Logged in!")
+    return redirect("/user_homepage")
+
 
 @app.route('/logout')
 def logout():
     """Log out."""
 
-    del session["id"]
-    flash("You are now logged Out.")
+    del session["user_id"]
+    flash("You are now logged out.")
     return redirect("/")
 
 
-#@app.route('/user_homepage/<int:user_id')
+@app.route('/user_homepage')
 def user_homepage():
-    """Show user's map."""
+    """Show logged-in user's map."""
 
-    user = User.query.get(user_id)
-    return 
+    print "User Homepage"
 
+    user_id = session.get("user_id")
 
+    if user_id:
+        flash("A map will go here!")
 
+        user = User.query.get(user_id)
+        print user
+        # need to access user object    
+        # query for user info - aka existing pins
 
+    else:
+        flash("Please log in to see your map.")
+        return redirect("/login")
 
-
-
-
+    return render_template("user_homepage.html")
 
 if __name__ == "__main__":
     # Set debug=True here, since it has to be True at the point
     # of invoking the DebugToolbarExtension
-
-    # Do not debug for demo
-    app.debug = True
 
     connect_to_db(app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
-    app.run()
+    app.run(debug=True, host="0.0.0.0")
