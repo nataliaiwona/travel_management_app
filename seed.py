@@ -9,16 +9,14 @@ from server import app
 def load_users():
     """Load users from users.csv into database."""
 
-    User.query.delete()
-
     print "Users"
 
     for row in open("seed_data/users.csv"):
         row = row.rstrip()
         id, fname, lname, email, password = row.split(",")
 
-        user = User(id=id, 
-                    fname=fname, 
+        user = User(id=id,
+                    fname=fname,
                     lname=lname,
                     email=email,
                     password=password)
@@ -33,15 +31,13 @@ def load_users():
 def load_pin_types():
     """Load pin types from pin_types.csv into database."""
 
-    PinType.query.delete()
-
     print "Pin Types"
 
     for row in open("seed_data/pin_types.csv"):
         row = row.rstrip()
         id, description = row.split(",")
 
-        pin_types = PinType(id=id, 
+        pin_types = PinType(id=id,
                             description=description)
 
         db.session.add(pin_types)
@@ -51,8 +47,6 @@ def load_pin_types():
 
 def load_locations():
     """Load locations from locations.csv into database."""
-
-    Location.query.delete()
 
     print "Locations"
 
@@ -108,7 +102,6 @@ def load_pins():
 def set_val_user_id():
     """Set value for the next user_id after seeding database"""
 
-    # For loop? Get the Max user_id in the database
     result = db.session.query(func.max(User.id)).one()
     max_id = int(result[0])
 
@@ -121,7 +114,6 @@ def set_val_user_id():
 def set_val_location_id():
     """Set value for the next location_id after seeding database"""
 
-    # For loop? Get the Max user_id in the database
     result = db.session.query(func.max(Location.id)).one()
     max_id = int(result[0])
 
@@ -134,7 +126,6 @@ def set_val_location_id():
 def set_val_pin_id():
     """Set value for the next pin_id after seeding database"""
 
-    # For loop? Get the Max user_id in the database
     result = db.session.query(func.max(Pin.id)).one()
     max_id = int(result[0])
 
@@ -145,16 +136,18 @@ def set_val_pin_id():
 
 
 if __name__ == "__main__":
+    print "Connecting"
     connect_to_db(app)
+    print "Dropping"
+    db.drop_all()   # solving cascade delete
+    print "Creating"
     db.create_all()
-
-    Pin.query.delete()
 
     load_pin_types()
     load_users()
     load_locations()
     load_pins()
-    
+
     set_val_user_id()
     set_val_location_id()
     set_val_pin_id()

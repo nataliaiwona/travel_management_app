@@ -5,17 +5,17 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, PinType, Location, Pin 
+from model import connect_to_db, db, User, PinType, Location, Pin
 
 import os
 
 app = Flask(__name__)
 
-# Required to use Flask sessions and the debug toolbar 
+# Required to use Flask sessions and the debug toolbar
 app.secret_key = "MEMORY"
-maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
+# maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
-# Raises and error for when you use an undefined variable in Jinja2. 
+# Raises and error for when you use an undefined variable in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
 
@@ -38,17 +38,21 @@ def signup_form():
 def signup_process():
     """Process signup."""
 
-    fname = request.form.get["fname"]
-    lname = request.form.get["lname"]
-    email = request.form.get["email"]
-    password = request.form.get["password"]
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     new_user = User(fname=fname, lname=lname, email=email, password=password)
 
     db.session.add(new_user)
     db.session.commit()
-# TODO NA - add user to session and add to flash msg
-    flash("Thanks for signing up, {}! Bon Voyage!".format(fname))
+
+    user = User.query.filter_by(email=email).first()
+
+    session["user_id"] = user.id
+
+    flash("Thanks for signing up, {}! You are now logged in. Bon Voyage!".format(fname))
     return redirect("/user_homepage")
 
 
@@ -62,9 +66,9 @@ def login_form():
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login."""
-# TODO add .get
-    email = request.form["email"]
-    password = request.form["password"]
+
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     user = User.query.filter_by(email=email).first()
 
@@ -101,7 +105,7 @@ def user_homepage():
 
     if user_id:
         user = User.query.get(user_id)
-        # need to access user object    
+        # need to access user object
         # query for user info - aka existing pins
     else:
         flash("Please log in to see your map.")
@@ -116,19 +120,21 @@ def add_pins():
 
     print "Add Pins to Map"
 
-
-
     user_id = session.get("user_id")
 
     if user_id:
-        user=User.query.get(user_id)
+        user = User.query.get(user_id)
+        # need to access user object
+        # query for user info - aka existing pins
+        # save new pins to db for specific user
     else:
         flash("Please log in to add pins to your map.")
         return redirect("/login")
 
     return render_template("add_pins.html")
 
-
+# JS post request for the key
+# Call source blah.sh so it can access key
 
 
 if __name__ == "__main__":
