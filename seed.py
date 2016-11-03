@@ -65,13 +65,13 @@ def load_locations():
 
         id, name, city, state, country, latitude, longitude = row
 
-        locations = Location(id=id, 
-                            name=name,
-                            city=city,
-                            state=state,
-                            country=country,
-                            latitude=latitude,
-                            longitude=longitude)
+        locations = Location(id=id,
+                             name=name,
+                             city=city,
+                             state=state,
+                             country=country,
+                             latitude=latitude,
+                             longitude=longitude,)
 
         db.session.add(locations)
 
@@ -85,14 +85,14 @@ def load_pins():
 
     for row in open("seed_data/pins.csv"):
         row = row.rstrip().split(",")
-        
+
         for i, element in enumerate(row):
             if element == "":
                 row[i] = None
 
         id, user_id, pin_type_id, location_id, year, visits = row
 
-        pins = Pin(id=id, 
+        pins = Pin(id=id,
                    user_id=user_id,
                    pin_type_id=pin_type_id,
                    location_id=location_id,
@@ -130,6 +130,7 @@ def set_val_location_id():
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
+
 def set_val_pin_id():
     """Set value for the next pin_id after seeding database"""
 
@@ -146,7 +147,7 @@ def set_val_pin_id():
 if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
-    
+
     Pin.query.delete()
 
     load_pin_types()

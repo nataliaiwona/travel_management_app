@@ -7,10 +7,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, PinType, Location, Pin 
 
+import os
+
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar 
 app.secret_key = "MEMORY"
+maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
 # Raises and error for when you use an undefined variable in Jinja2. 
 app.jinja_env.undefined = StrictUndefined
@@ -35,16 +38,16 @@ def signup_form():
 def signup_process():
     """Process signup."""
 
-    fname = request.form["fname"]
-    lname = request.form["lname"]
-    email = request.form["email"]
-    password = request.form["password"]
+    fname = request.form.get["fname"]
+    lname = request.form.get["lname"]
+    email = request.form.get["email"]
+    password = request.form.get["password"]
 
     new_user = User(fname=fname, lname=lname, email=email, password=password)
 
     db.session.add(new_user)
     db.session.commit()
-
+# TODO NA - add user to session and add to flash msg
     flash("Thanks for signing up, {}! Bon Voyage!".format(fname))
     return redirect("/user_homepage")
 
@@ -59,7 +62,7 @@ def login_form():
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login."""
-
+# TODO add .get
     email = request.form["email"]
     password = request.form["password"]
 
@@ -106,11 +109,14 @@ def user_homepage():
 
     return render_template("user_homepage.html")
 
+
 @app.route('/add_pins')
 def add_pins():
     """Allow user to add pins to map!"""
 
     print "Add Pins to Map"
+
+
 
     user_id = session.get("user_id")
 

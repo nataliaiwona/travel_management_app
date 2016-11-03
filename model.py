@@ -68,7 +68,7 @@ class Pin(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pin_type_id = db.Column(db.Integer, db.ForeignKey('pin_types.id'))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    year = db.Column(db.Integer, nullable=True )
+    year = db.Column(db.Integer, nullable=True)
     visits = db.Column(db.Integer, nullable=True)
 
 
