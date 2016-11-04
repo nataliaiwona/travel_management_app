@@ -86,7 +86,6 @@ class Pin(db.Model):
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""
 
-        # add more easily identifiable relationship below
         p = "<Pins city={} name={} user_id={} pin={} pin_type_id={} location_id={} year={} visits={}>"
         return p.format(self.location.city, self.user.fname, self.user_id,
                         self.pin_type.description, self.pin_type_id,
