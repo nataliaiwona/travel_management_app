@@ -140,7 +140,7 @@ def add_pins():
     state = request.form.get("state") if request.form.get("state") != '' else None
     country = request.form.get("country")
     location = Location.query.filter(Location.city == city,
-                                     Location.country == country, 
+                                     Location.country == country,
                                      Location.name == city).first()
 
     if location is None:
@@ -153,19 +153,7 @@ def add_pins():
     db.session.add(new_pin)
     db.session.commit()
 
-
-    # state = request.form.get("state")
-    # 
-
-    # new_pin = Location(city=city, state=state, country=country, pin_type=pin_type)
-
-    # db.session.add(new_pin)
-    # db.session.commit()
-
     return redirect('/add_pins')
-    
-# JS post request for the key
-# Call source blah.sh so it can access key
 
 
 if __name__ == "__main__":
