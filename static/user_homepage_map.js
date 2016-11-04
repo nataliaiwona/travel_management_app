@@ -1,7 +1,15 @@
-var map;
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-    });
+    var myLatLng = {lat: 72, lng: -140};
 }
+
+var map = new google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    scrollwheel: false,
+    zoom: 5, 
+    zoomControl: true,
+    panControl: false,
+    streetViewControl: false,
+    // styles: default,
+    // mapTypeId: default
+});
+

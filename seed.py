@@ -61,6 +61,7 @@ def load_locations():
 
         id, name, city, state, country, latitude, longitude = row
 
+        # TODO Make locations singular
         locations = Location(id=id,
                              name=name,
                              city=city,
@@ -88,6 +89,7 @@ def load_pins():
 
         id, user_id, pin_type_id, location_id, year, visits = row
 
+        # TODO make pins singular
         pins = Pin(id=id,
                    user_id=user_id,
                    pin_type_id=pin_type_id,

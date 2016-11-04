@@ -114,12 +114,15 @@ def user_homepage():
 
     return render_template("user_homepage.html", api_key=maps_key)
 
+# also need JSON route here to show user map
+# can use the same ajax endpoint to access json / map 
+
 
 @app.route('/add_pins', methods=['GET'])
 def show_add_pins():
     """Show page to add pins to map."""
 
-    return render_template("add_pins.html")
+    return render_template("add_pins.html", api_key=maps_key)
 
 
 @app.route('/add_pins', methods=['POST'])
@@ -157,7 +160,19 @@ def add_pins():
     db.session.add(new_pin)
     db.session.commit()
 
-    return redirect('/add_pins')
+    return redirect('/add_pins', api_key=maps_key)
+
+@app.route('/add_pins.json')
+def pin_info():
+    """JSON information about user map pins."""
+
+    pins = {
+        pins.id: {
+            # figure out which data i want to extract so i can add to my JS
+        }
+    }
+
+    # Assemble a dictionary of pin type and location that I can jsonify
 
 
 if __name__ == "__main__":
