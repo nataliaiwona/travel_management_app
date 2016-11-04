@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, PinType, Location, Pin
 
 import os
+import bcrypt
 
 app = Flask(__name__)
 # Required to use Flask sessions and the debug toolbar
@@ -40,7 +41,7 @@ def signup_process():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    new_user = User(fname=fname, lname=lname, email=email, password=password)
+    new_user = User(fname=fname, lname=lname, email=email, password=bcrypt.hashpw(password, bcrypt.gensalt()))
 
     db.session.add(new_user)
     db.session.commit()
@@ -73,7 +74,10 @@ def login_process():
         flash("No such user")
         return redirect("/login")
 
-    if user.password != password:
+    if bcrypt.hashpw(password.encode("UTF_8"),
+                     user.password.encode("UTF_8")).decode() == user.password:
+        flash("Password matches")
+    else:
         flash("Incorrect password")
         return redirect("/login")
 
@@ -108,7 +112,7 @@ def user_homepage():
         flash("Please log in to see your map.")
         return redirect("/login")
 
-    return render_template("user_homepage.html")
+    return render_template("user_homepage.html", api_key=maps_key)
 
 
 @app.route('/add_pins', methods=['GET'])

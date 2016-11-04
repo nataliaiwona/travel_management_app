@@ -5,6 +5,8 @@ from sqlalchemy import func
 from model import User, PinType, Location, Pin, connect_to_db, db
 from server import app
 
+import bcrypt
+
 
 def load_users():
     """Load users from users.csv into database."""
@@ -19,7 +21,7 @@ def load_users():
                     fname=fname,
                     lname=lname,
                     email=email,
-                    password=password)
+                    password=bcrypt.hashpw(password, bcrypt.gensalt()))
 
         # Add to session so it will be stored!
         db.session.add(user)
