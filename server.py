@@ -1,8 +1,7 @@
 """Travel Management Application"""
 
 from jinja2 import StrictUndefined
-
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, PinType, Location, Pin
@@ -10,12 +9,10 @@ from model import connect_to_db, db, User, PinType, Location, Pin
 import os
 
 app = Flask(__name__)
-
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "MEMORY"
-# maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
-
-# Raises and error for when you use an undefined variable in Jinja2.
+maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
+# Raises an error for when you use an undefined variable in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
 
@@ -114,7 +111,14 @@ def user_homepage():
     return render_template("user_homepage.html")
 
 
-@app.route('/add_pins')
+@app.route('/add_pins', methods=['GET'])
+def show_add_pins():
+    """Show page to add pins to map."""
+
+    return render_template("add_pins.html")
+
+
+@app.route('/add_pins', methods=['POST'])
 def add_pins():
     """Allow user to add pins to map!"""
 
@@ -131,8 +135,35 @@ def add_pins():
         flash("Please log in to add pins to your map.")
         return redirect("/login")
 
-    return render_template("add_pins.html")
+    pin_type = request.form.get("pin_type")
+    city = request.form.get("city")
+    state = request.form.get("state") if request.form.get("state") != '' else None
+    country = request.form.get("country")
+    location = Location.query.filter(Location.city == city,
+                                     Location.country == country, 
+                                     Location.name == city).first()
 
+    if location is None:
+        location = Location(city=city, state=state, country=country, name=city)
+        db.session.add(location)
+        db.session.commit()
+
+    new_pin = Pin(user_id=user.id,
+                  pin_type_id=pin_type, location_id=location.id)
+    db.session.add(new_pin)
+    db.session.commit()
+
+
+    # state = request.form.get("state")
+    # 
+
+    # new_pin = Location(city=city, state=state, country=country, pin_type=pin_type)
+
+    # db.session.add(new_pin)
+    # db.session.commit()
+
+    return redirect('/add_pins')
+    
 # JS post request for the key
 # Call source blah.sh so it can access key
 

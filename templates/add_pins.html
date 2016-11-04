@@ -4,5 +4,39 @@
 <h1 id="add-pins-title">Add Pins to Your Map</h1>
 
 <!--Graphics and images here, maybe a flying JS suitcase a la ninja from MCF-->
+<div>
+    <h2>Search for a city</h2>
+    <form action="/add_pins" method="POST">
+        
+        <div class="form-signup">
+            <label>
+                City: <input type="text" name="city" required class="form-ctrl">
+            </label>
+        </div>
+        
+        <div class="form-signup">
+            <label>
+                State: <input type="text" name="state">
+            </label>
+        </div>
+        
+        <div class="form-signup">
+            <label>
+                Country: <input type="text" name="country" required class="form-ctrl">
+            </label>
+        </div>
+
+        <div>
+          <input type="radio" name="pin_type" value="1"> On my wish list!. <br>
+          <input type="radio" name="pin_type" value="2"> I want to go back here!<br>
+          <input type="radio" name="pin_type" value="3"> I do not want to go back here.<br>
+        </div>
+
+        <div class="form-signup">
+            <input type="submit" name="Add Pin!">
+        </div>
+    
+    </form>
+</div>
 
 {% endblock %}
