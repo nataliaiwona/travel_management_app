@@ -13,3 +13,19 @@ var map = new google.maps.Map(document.getElementById('map'), {
     // mapTypeId: default
 });
 
+$.get('/add_pins.json', function(pins) {
+
+    var pin, marker, html;
+
+    for (var key in pins) {
+        pin = pins[key];
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(pin.capLat, pin.capLong),
+            map: map,
+            title: 'Pin ID: ' + pin.pinID,
+            icon: "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png"
+        });
+
+    }
+});

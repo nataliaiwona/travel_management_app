@@ -115,7 +115,7 @@ def user_homepage():
     return render_template("user_homepage.html", api_key=maps_key)
 
 # also need JSON route here to show user map
-# can use the same ajax endpoint to access json / map 
+# can use the same ajax endpoint to access json / map
 
 
 @app.route('/add_pins', methods=['GET'])
@@ -127,14 +127,16 @@ def show_add_pins():
 
 @app.route('/add_pins', methods=['POST'])
 def add_pins():
-    """Allow user to add pins to map!"""
+    """Allow user to add pin to map!"""
 
-    print "Add Pins to Map"
+    print "Add Pin to Map"
 
     user_id = session.get("user_id")
+    print user_id
 
     if user_id:
         user = User.query.get(user_id)
+        print user.fname
         # need to access user object
         # query for user info - aka existing pins
         # save new pins to db for specific user
@@ -142,35 +144,50 @@ def add_pins():
         flash("Please log in to add pins to your map.")
         return redirect("/login")
 
-    pin_type = request.form.get("pin_type")
+    pin_type = request.form.get("pinType")
     city = request.form.get("city")
     state = request.form.get("state") if request.form.get("state") != '' else None
     country = request.form.get("country")
+    lat = request.form.get("lat")
+    lng = request.form.get("lng")
     location = Location.query.filter(Location.city == city,
                                      Location.country == country,
-                                     Location.name == city).first()
+                                     Location.name == city,
+                                     Location.latitude == lat,
+                                     Location.longitude == lng).first()
+    print pin_type, city, state, country, location
 
     if location is None:
-        location = Location(city=city, state=state, country=country, name=city)
+        location = Location(city=city, state=state, country=country, name=city,
+                            latitude=lat, longitude=lng)
         db.session.add(location)
         db.session.commit()
-
+        print location
+    print location
     new_pin = Pin(user_id=user.id,
                   pin_type_id=pin_type, location_id=location.id)
+    
     db.session.add(new_pin)
     db.session.commit()
 
-    return redirect('/add_pins', api_key=maps_key)
+    print new_pin
 
-@app.route('/add_pins.json')
-def pin_info():
-    """JSON information about user map pins."""
+    return "City has been added to you map!"
 
-    pins = {
-        pins.id: {
-            # figure out which data i want to extract so i can add to my JS
-        }
-    }
+# @app.route('/user_pin_info.json')
+# def pin_info():
+#     """JSON information about user map pins."""
+
+#     pins = {
+#         pins.id: {
+#             "pinId": pins.id,
+#             "city": pins.location_id.city
+#             # figure out which data i want to extract so i can add to my JS
+#         }
+#         for pin in Pin.query
+#     }
+
+#     return jsonify(pins)
 
     # Assemble a dictionary of pin type and location that I can jsonify
 
