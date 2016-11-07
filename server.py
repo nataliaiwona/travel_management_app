@@ -157,7 +157,7 @@ def add_pins():
                                      Location.longitude == lng).first()
     print pin_type, city, state, country, location
 
-    if location is None:
+    if location is None: # add error handling for spelling/abbreviations etc.
         location = Location(city=city, state=state, country=country, name=city,
                             latitude=lat, longitude=lng)
         db.session.add(location)
@@ -172,24 +172,31 @@ def add_pins():
 
     print new_pin
 
-    return "City has been added to you map!"
+    return "City has been added to your  map!"
 
-# @app.route('/user_pin_info.json')
-# def pin_info():
-#     """JSON information about user map pins."""
+@app.route('/user_pin_info.json')
+def pin_info():
+    """JSON information about user map pins."""
+    # print Pin.query.all()
 
-#     pins = {
-#         pins.id: {
-#             "pinId": pins.id,
-#             "city": pins.location_id.city
-#             # figure out which data i want to extract so i can add to my JS
-#         }
-#         for pin in Pin.query
-#     }
+    pins = {
+        pin.id: {
+            "pinId": pin.id,
+            "pinTypeId": pin.pin_type_id,
+            "userId": pin.user_id,
+            "locationId": pin.location_id,
+            "city": pin.location.city,
+            "state": pin.location.state,
+            "country": pin.location.country,
+            "latitude": pin.location.latitude,
+            "longitude": pin.location.longitude
+        }
+        for pin in Pin.query.all()
+    }
 
-#     return jsonify(pins)
+    print pins
 
-    # Assemble a dictionary of pin type and location that I can jsonify
+    return jsonify(pins)
 
 
 if __name__ == "__main__":

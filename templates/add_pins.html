@@ -44,7 +44,7 @@
         </div>
 
         <div>
-          <input class="pin" type="radio" name="pin_type" value="1"> Add to wish list! <br>
+          <input class="pin" type="radio" name="pin_type" value="1" required> Add to wish list! <br>
           <input class="pin" type="radio" name="pin_type" value="2"> I want to go back here!<br>
           <input class="pin" type="radio" name="pin_type" value="3"> I do not want to go back here.<br>
         </div>
@@ -62,14 +62,15 @@
   src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap"
   async defer>
 </script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap"
+        async defer></script>
 <script>
 "use strict";
 
   var geocoder;
   var map;
-  var places;
-  var markers = [];
+  // var places;
+  // var markers = [];
 
   function initMap() {
 
@@ -128,6 +129,7 @@
           
           var lat = data.results[0].geometry.location.lat;
           var lng = data.results[0].geometry.location.lng;
+
           console.log(data.results[0].geometry.location.lat);
           console.log(data.results[0].geometry.location.lng);
 
@@ -141,16 +143,32 @@
           };
 
           $.post("/add_pins",
-                 formInputs)
-                  //add inline success() function that console.logs); 
+                 formInputs, function(results) {
+                  console.log(results)
+                 });
+                  //add inline success function that console.logs); 
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
     });
 
-    // return false;
+    return false;
   }); 
+
+$.get('/user_pin_info.json', function (pins) {
+  var pin, marker, html;
+
+  for (var key in pins) {
+    pin =  pins[key];
+
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(pin.latitude, pin.longitude),
+      map: map
+    });
+  }
+})
+
 
 </script>
 
