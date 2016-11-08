@@ -96,41 +96,17 @@ def logout():
     flash("You are now logged out.")
     return redirect("/")
 
-
-@app.route('/user_homepage')
-def user_homepage():
-    """Show logged-in user's map."""
-
-    print "User Homepage"
-
-    user_id = session.get("user_id")
-
-    if user_id:
-        user = User.query.get(user_id)
-        # need to access user object
-        # query for user info - aka existing pins
-    else:
-        flash("Please log in to see your map.")
-        return redirect("/login")
-
-    return render_template("user_homepage.html", api_key=maps_key)
-
-# also need JSON route here to show user map
-# can use the same ajax endpoint to access json / map
-
-
-@app.route('/add_pins', methods=['GET'])
+@app.route('/user_homepage', methods=['GET'])
 def show_add_pins():
     """Show page to add pins to map."""
 
-    return render_template("add_pins.html", api_key=maps_key)
+    return render_template("user_homepage.html", api_key=maps_key)
 
+@app.route('/user_homepage', methods=['POST'])
+def user_homepage():
+    """Show logged-in user's map and add pins to map."""
 
-@app.route('/add_pins', methods=['POST'])
-def add_pins():
-    """Allow user to add pin to map!"""
-
-    print "Add Pin to Map"
+    print "User Homepage"
 
     user_id = session.get("user_id")
     print user_id
@@ -158,22 +134,24 @@ def add_pins():
                                      Location.longitude == lng).first()
     print pin_type, city, state, country, location
 
-    if location is None: # add error handling for spelling/abbreviations etc.
+    if location is None:
         location = Location(city=city, state=state, country=country, name=city,
                             latitude=lat, longitude=lng)
         db.session.add(location)
         db.session.commit()
         print location
+
     print location
     new_pin = Pin(user_id=user.id,
                   pin_type_id=pin_type, location_id=location.id)
-    
+
     db.session.add(new_pin)
     db.session.commit()
 
     print new_pin
 
     return "City has been added to your  map!"
+
 
 @app.route('/user_pin_info.json')
 def pin_info():

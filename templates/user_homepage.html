@@ -1,46 +1,200 @@
 {% extends 'base.html' %}
 {% block head %}
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+<title>Search by City</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<style>
+  /* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+  #map {
+    height: 100%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  .pac-container {
+    font-family: Roboto;
+  }
+
+  #type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+  }
+
+  #type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
+<input id="pac-input" class="controls" type="text"
+    placeholder="Enter a location">
 
-<h1>Your Map</h1> 
-<h2>
-    <a href="/add_pins">Add some pins!</a>
-</h2>
+<div id="type-selector" class="controls">
+  <input type="radio" name="pin_type" id="pin_type_1" value="1" checked="checked">
+  <label for="pin_type_1">Wish List</label>
 
+  <input type="radio" name="pin_type" id="pin_type_2" value="2">
+  <label for="pin_type_2">Going back!</label>
+
+  <input type="radio" name="pin_type" id="pin_type_3" value="3">
+  <label for="pin_type_3">Never going back</label>
+
+  <input type="submit" name="submit" id="submit" value="Add Pin">
+  <label for="submit"></label>
+
+</div>
 <div id="map"></div>
+
 <script>
-  var map;
+// NB: Used snippets of Google Maps/Places Autocomplete demo
+
+  // Initializing the map, centering in the middle of the world and zooming so 
+  // entire world map is visible.
   function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 0, lng: 0},
       zoom: 2
     });
+
+    // Initializing input variable by selecting the pac-input box.
+    var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+
+    // Initializing types variable by selecting the type-selector div,
+    // which includes pin radio buttons. 
+    var types = document.getElementById('type-selector');
+    // Setting the input and types variables to the top center of map.
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(types);
+
+    // Setting options variable to restrict the autocomplete search 
+    // to cities only.
+    var options = {
+      types: ['(cities)']
+    };
+
+    // Initializing autocomplete object, including input and options vars
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    
+    // Initialize info window and marker objects
+    // var infowindow = new google.maps.InfoWindow();
+    // var marker = new google.maps.Marker({
+    //   map: map,
+    //   anchorPoint: new google.maps.Point(0, -29)
+    // });
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      // alert('autocomplete achieved!')
+      var place = autocomplete.getPlace();
+      console.log(place);
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+      // // If the place has a geometry, then present it on a map.
+      // if (place.geometry.viewport) {
+      //   //Show entire map with marker (marker functionality below)
+      //   map.map;
+      // } else {
+      //   map.setCenter(place.geometry.location);
+      //   map.setZoom(2);  
+      // }
+      // marker.setIcon(/** @type {google.maps.Icon} */({
+      //   url: place.icon,
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(35, 35)
+      // }));
+      // marker.setPosition(place.geometry.location);
+      // marker.setVisible(true);
+
+      // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+      //     place.formatted_address + '</div>');
+      // infowindow.open(map, marker);
+      
+      // jQuery to bind an event handler to the click event
+      $('#submit').click(function(evt){ 
+        evt.preventDefault();
+        // Initialize address as empty string and place object.
+        // Check to see if certain address components exist in the place object
+        var place = autocomplete.getPlace();
+        var pinType = $("input[name=pin_type]:checked").val();
+        
+        var addPin = {
+          "city": place.address_components[0].long_name,
+          "country": place.address_components[3].long_name,
+          "lat": place.geometry.location.lat(),
+          "lng": place.geometry.location.lng(),
+          "pinType": pinType 
+        }
+
+        if (place.address_components[3].long_name == "United States") {
+          addPin["state"] = place.address_components[2].long_name;
+        }
+          
+        $.post("/user_homepage",
+               addPin, function(results) {
+               console.log(results)
+        });
+
+      });
+    });
+        $.get('/user_pin_info.json', function (pins) {
+          var pin, marker, html;
+
+          for (var key in pins) {
+            pin =  pins[key];
+
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(pin.latitude, pin.longitude),
+              map: map
+            });
+          }
+        })
   }
+
+
+
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}
-&callback=initMap"
-async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap"
+    async defer></script>
 
 {% endblock %}
-
-
-   
 
