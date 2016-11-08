@@ -41,7 +41,8 @@ def signup_process():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    new_user = User(fname=fname, lname=lname, email=email, password=bcrypt.hashpw(password, bcrypt.gensalt()))
+    new_user = User(fname=fname, lname=lname, email=email,
+                    password=bcrypt.hashpw(password.encode("UTF_8"), bcrypt.gensalt()))
 
     db.session.add(new_user)
     db.session.commit()
