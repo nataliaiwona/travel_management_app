@@ -164,6 +164,10 @@
           "pinType": pinType 
         }
 
+        // if (pinType == "1") {
+
+        // }
+
         for (var i = 0; i < place.address_components.length; i++) {
           console.log(i);
           console.log(place.address_components);
@@ -184,28 +188,29 @@
                addPin, function(results) {
                console.log(results)
         });
+
+      });
+    });
+
+  var pushpins = {
+    1 : 'http://maps.google.com/mapfiles/ms/micons/blue-pushpin.png', 
+    2 : 'http://maps.google.com/mapfiles/ms/micons/green-pushpin.png',
+    3 : 'http://maps.google.com/mapfiles/ms/micons/red-pushpin.png'
+  }
+
+
         $.get('/user_pin_info.json', function (pins) {
           var pin, marker, html;
           for (var key in pins) {
             pin =  pins[key];
             marker = new google.maps.Marker({
               position: new google.maps.LatLng(pin.latitude, pin.longitude),
-              map: map
+              map: map,
+              icon: pushpins[pin.pinTypeId]
             });
           }
         })
-      });
-    });
-        // $.get('/user_pin_info.json', function (pins) {
-        //   var pin, marker, html;
-        //   for (var key in pins) {
-        //     pin =  pins[key];
-        //     marker = new google.maps.Marker({
-        //       position: new google.maps.LatLng(pin.latitude, pin.longitude),
-        //       map: map
-        //     });
-        //   }
-        // })
+
 }
 
 </script>
