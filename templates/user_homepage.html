@@ -80,6 +80,7 @@
 <div id="map"></div>
 
 <script>
+"use strict";
 // NB: Used snippets of Google Maps/Places Autocomplete demo
 
   // Initializing the map, centering in the middle of the world and zooming so 
@@ -158,39 +159,54 @@
         var pinType = $("input[name=pin_type]:checked").val();
         
         var addPin = {
-          "city": place.address_components[0].long_name,
-          "country": place.address_components[3].long_name,
           "lat": place.geometry.location.lat(),
           "lng": place.geometry.location.lng(),
           "pinType": pinType 
         }
 
-        if (place.address_components[3].long_name == "United States") {
-          addPin["state"] = place.address_components[2].long_name;
+        for (var i = 0; i < place.address_components.length; i++) {
+          console.log(i);
+          console.log(place.address_components);
+          if (place.address_components[i]["types"][0] == "locality") {
+            addPin["city"] = place.address_components[i].long_name
+          }
+
+          if (place.address_components[i]["types"][0] == "administrative_area_level_1") {
+            addPin["state"] = place.address_components[i].long_name;
+          }
+
+          if (place.address_components[i]["types"][0] == "country") {
+            addPin["country"] = place.address_components[i].long_name;
+          }
         }
           
         $.post("/user_homepage",
                addPin, function(results) {
                console.log(results)
         });
-
-      });
-    });
         $.get('/user_pin_info.json', function (pins) {
           var pin, marker, html;
-
           for (var key in pins) {
             pin =  pins[key];
-
             marker = new google.maps.Marker({
               position: new google.maps.LatLng(pin.latitude, pin.longitude),
               map: map
             });
           }
         })
-  }
-
-
+      });
+    });
+        // $.get('/user_pin_info.json', function (pins) {
+        //   var pin, marker, html;
+        //   for (var key in pins) {
+        //     pin =  pins[key];
+        //     marker = new google.maps.Marker({
+        //       position: new google.maps.LatLng(pin.latitude, pin.longitude),
+        //       map: map
+        //     });
+        //   }
+        // })
+}
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap"
