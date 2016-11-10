@@ -43,6 +43,7 @@
 
   .pac-container {
     font-family: Roboto;
+    z-index: 99999;
   }
 
   #type-selector {
@@ -57,26 +58,51 @@
     font-weight: 300;
   }
 </style>
+
+
 {% endblock %}
 
 {% block content %}
-<input id="pac-input" class="controls" type="text"
-    placeholder="Enter a location">
 
-<div id="type-selector" class="controls">
-  <input type="radio" name="pin_type" id="pin_type_1" value="1" checked="checked">
-  <label for="pin_type_1">Wish List</label>
 
-  <input type="radio" name="pin_type" id="pin_type_2" value="2">
-  <label for="pin_type_2">Going back!</label>
+<!-- Trigger the modal with a button -->
+<button id="myBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+data-target="#myModal">Add a Pin to Your Map</button>
 
-  <input type="radio" name="pin_type" id="pin_type_3" value="3">
-  <label for="pin_type_3">Never going back</label>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-  <input type="submit" name="submit" id="submit" value="Add Pin">
-  <label for="submit"></label>
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Pin: Search for a City</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+        <input id="pac-input" type="text" placeholder="Enter a location">
+        <div id="type-selector">
+          <input type="radio" name="pin_type" id="pin_type_1" value="1" checked="checked">
+          <label for="pin_type_1">Wish List</label>
 
+          <input type="radio" name="pin_type" id="pin_type_2" value="2">
+          <label for="pin_type_2">Going back!</label>
+
+          <input type="radio" name="pin_type" id="pin_type_3" value="3">
+          <label for="pin_type_3">Never going back</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" name="submit" id="submit" data-dismiss="modal">Add Pin</button>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 <div id="map"></div>
 
 <script>
@@ -90,6 +116,14 @@
       center: {lat: 0, lng: 0},
       zoom: 2
     });
+  function addPinToMap(pin) {
+    //return short hand bc not using var markers
+    return new google.maps.Marker({
+      position: new google.maps.LatLng(pin.latitude, pin.longitude),
+      map: map,
+      icon: pushpins[pin.pinTypeId]
+    }) 
+  }
 
     // Initializing input variable by selecting the pac-input box.
     var input = /** @type {HTMLInputElement} */(
@@ -99,8 +133,8 @@
     // which includes pin radio buttons. 
     var types = document.getElementById('type-selector');
     // Setting the input and types variables to the top center of map.
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(types);
+    // map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+    // map.controls[google.maps.ControlPosition.TOP_CENTER].push(types);
 
     // Setting options variable to restrict the autocomplete search 
     // to cities only.
@@ -122,29 +156,13 @@
       // alert('autocomplete achieved!')
       var place = autocomplete.getPlace();
       console.log(place);
-      if (!place.geometry) {
-        // User entered the name of a Place that was not suggested and
-        // pressed the Enter key, or the Place Details request failed.
-        window.alert("No details available for input: '" + place.name + "'");
-        return;
-      }
-      // // If the place has a geometry, then present it on a map.
-      // if (place.geometry.viewport) {
-      //   //Show entire map with marker (marker functionality below)
-      //   map.map;
-      // } else {
-      //   map.setCenter(place.geometry.location);
-      //   map.setZoom(2);  
+      // if (!place.geometry) {
+      //   // User entered the name of a Place that was not suggested and
+      //   // pressed the Enter key, or the Place Details request failed.
+      //   window.alert("No details available for input: '" + place.name + "'");
+      //   return;
       // }
-      // marker.setIcon(/** @type {google.maps.Icon} */({
-      //   url: place.icon,
-      //   size: new google.maps.Size(71, 71),
-      //   origin: new google.maps.Point(0, 0),
-      //   anchor: new google.maps.Point(17, 34),
-      //   scaledSize: new google.maps.Size(35, 35)
-      // }));
-      // marker.setPosition(place.geometry.location);
-      // marker.setVisible(true);
+
 
       // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
       //     place.formatted_address + '</div>');
@@ -159,15 +177,11 @@
         var pinType = $("input[name=pin_type]:checked").val();
         
         var addPin = {
-          "lat": place.geometry.location.lat(),
-          "lng": place.geometry.location.lng(),
+          "latitude": place.geometry.location.lat(),
+          "longitude": place.geometry.location.lng(),
           "pinType": pinType 
         }
-
-        // if (pinType == "1") {
-
-        // }
-
+        
         for (var i = 0; i < place.address_components.length; i++) {
           console.log(i);
           console.log(place.address_components);
@@ -186,7 +200,8 @@
           
         $.post("/user_homepage",
                addPin, function(results) {
-               console.log(results)
+               console.log(results);
+               addPinToMap(addPin); 
         });
 
       });
@@ -199,23 +214,20 @@
   }
 
 
-        $.get('/user_pin_info.json', function (pins) {
-          var pin, marker, html;
-          for (var key in pins) {
-            pin =  pins[key];
-            marker = new google.maps.Marker({
-              position: new google.maps.LatLng(pin.latitude, pin.longitude),
-              map: map,
-              icon: pushpins[pin.pinTypeId]
-            });
-          }
-        })
+    $.get('/user_pin_info.json', function (pins) {
+      var pin, marker, html;
+      for (var key in pins) {
+        pin =  pins[key];
+        addPinToMap(pin);
+      }
+    })
 
 }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap"
-    async defer></script>
+  async defer></script>
 
 {% endblock %}
+
 
