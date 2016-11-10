@@ -118,6 +118,8 @@ data-target="#myModal">Add a Pin to Your Map</button>
     });
   function addPinToMap(pin) {
     //return short hand bc not using var markers
+    
+
     return new google.maps.Marker({
       position: new google.maps.LatLng(pin.latitude, pin.longitude),
       map: map,
@@ -208,9 +210,9 @@ data-target="#myModal">Add a Pin to Your Map</button>
     });
 
   var pushpins = {
-    1 : 'http://maps.google.com/mapfiles/ms/micons/blue-pushpin.png', 
-    2 : 'http://maps.google.com/mapfiles/ms/micons/green-pushpin.png',
-    3 : 'http://maps.google.com/mapfiles/ms/micons/red-pushpin.png'
+    1 : 'http://maps.google.com/mapfiles/ms/micons/blue.png', 
+    2 : 'http://maps.google.com/mapfiles/ms/micons/green.png',
+    3 : 'http://maps.google.com/mapfiles/ms/micons/red.png'
   }
 
 

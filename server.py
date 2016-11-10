@@ -125,8 +125,8 @@ def user_homepage():
     city = request.form.get("city")
     state = request.form.get("state") if request.form.get("state") != '' else None
     country = request.form.get("country")
-    lat = request.form.get("lat")
-    lng = request.form.get("lng")
+    lat = request.form.get("latitude")
+    lng = request.form.get("longitude")
     location = Location.query.filter(Location.city == city,
                                      Location.country == country,
                                      Location.name == city,
