@@ -11,12 +11,12 @@ function initMap() {
         return new google.maps.Marker({
             position: new google.maps.LatLng(pin.latitude, pin.longitude),
             map: map,
-            icon: pushpins[pin.pinTypeId]
+            icon: pinIcons[pin.pinTypeId]
         });
     }
 
     // Initializing input variable by selecting the pac-input box.
-    var input = (document.getElementById('pac-input'));
+    var input = document.getElementById('pac-input');
 
     // Initializing types variable by selecting the type-selector div,
     // which includes pin radio buttons. 
@@ -32,8 +32,6 @@ function initMap() {
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        var place = autocomplete.getPlace();
-        console.log(place);
 
         // jQuery to bind an event handler to the click event
         $('#submit').click(function(evt){
@@ -50,8 +48,6 @@ function initMap() {
             };
           
             for (var i = 0; i < place.address_components.length; i++) {
-                console.log(i);
-                console.log(place.address_components);
             
                 if (place.address_components[i]["types"][0] == "locality") {
                     pin["city"] = place.address_components[i].long_name;
@@ -67,28 +63,24 @@ function initMap() {
             }
         
             $.post("/user_homepage",
-                pin, function(results) {
-                //console.log(results);
-                console.log(pin);
+                pin, function() {
                 addPinToMap(pin);
             });
 
         });
     });
     
-    var pushpins = {
+    var pinIcons = {
         1: 'http://maps.google.com/mapfiles/ms/micons/blue.png',
         2: 'http://maps.google.com/mapfiles/ms/micons/green.png',
         3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
     };
 
     $.get('/user_pin_info.json', function (pins) {
-        var pin, marker, html;
         for (var key in pins) {
-            pin =  pins[key];
+            var pin =  pins[key];
             addPinToMap(pin);
         }
-        console.log(100, pin);
     });
 
 
