@@ -1,8 +1,6 @@
-"use strict()";
+"use strict";
 // NB: Used snippets of Google Maps/Places Autocomplete demo
 
-// Initializing the map, centering in the middle of the world and zooming so 
-// entire world map is visible.
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
@@ -10,8 +8,6 @@ function initMap() {
     });
 
     function addPinToMap(pin) {
-    //return short hand bc not using var markers
-    console.log(999, pin);
         return new google.maps.Marker({
             position: new google.maps.LatLng(pin.latitude, pin.longitude),
             map: map,
@@ -47,7 +43,7 @@ function initMap() {
             var place = autocomplete.getPlace();
             var pinType = $("input[name=pin_type]:checked").val();
 
-            var addPin = {
+            var pin = {
                 "latitude": place.geometry.location.lat(),
                 "longitude": place.geometry.location.lng(),
                 "pinTypeId": pinType
@@ -58,23 +54,23 @@ function initMap() {
                 console.log(place.address_components);
             
                 if (place.address_components[i]["types"][0] == "locality") {
-                    addPin["city"] = place.address_components[i].long_name;
+                    pin["city"] = place.address_components[i].long_name;
                 }
 
                 if (place.address_components[i]["types"][0] == "administrative_area_level_1") {
-                    addPin["state"] = place.address_components[i].long_name;
+                    pin["state"] = place.address_components[i].long_name;
                 }
 
                 if (place.address_components[i]["types"][0] == "country") {
-                    addPin["country"] = place.address_components[i].long_name;
+                    pin["country"] = place.address_components[i].long_name;
                 }
             }
         
             $.post("/user_homepage",
-                addPin, function(results) {
+                pin, function(results) {
                 //console.log(results);
-                console.log(addPin);
-                addPinToMap(addPin);
+                console.log(pin);
+                addPinToMap(pin);
             });
 
         });
@@ -85,7 +81,7 @@ function initMap() {
         2: 'http://maps.google.com/mapfiles/ms/micons/green.png',
         3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
     };
-    
+
     $.get('/user_pin_info.json', function (pins) {
         var pin, marker, html;
         for (var key in pins) {
