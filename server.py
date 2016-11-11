@@ -121,7 +121,7 @@ def user_homepage():
         flash("Please log in to add pins to your map.")
         return redirect("/login")
 
-    pin_type = request.form.get("pinType")
+    pin_type = request.form.get("pinTypeId")
     city = request.form.get("city")
     state = request.form.get("state") if request.form.get("state") != '' else None
     country = request.form.get("country")
