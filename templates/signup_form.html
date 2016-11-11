@@ -2,39 +2,39 @@
 {% block content %}
 
 <div>
-    <h2>Sign Up for an Account</h2>
-    <form action="/signup" method="POST">
-        
-        <div class="form-signup">
-            <label>
-                First Name: <input type="text" name="fname" required class="form-ctrl">
-            </label>
-        </div>
-        
-        <div class="form-signup">
-            <label>
-                Last Name: <input type="text" name="lname" required class="form-ctrl">
-            </label>
-        </div>
-        
-        <div class="form-signup">
-            <label>
-                Email Address: <input type="text" name="email" required class="form-ctrl">
-            </label>
-        </div>
-
-        <div class="form-signup">
-            <label>
-                Password: <input type="password" name="password" required class="form-ctrl">
-            </label>
-
-        </div>
-        
-        <div class="form-signup">
-            <input type="submit" name="Submit">
-        </div>
+  <h2>Sign Up for an Account</h2>
+  <form action="/signup" method="POST">
+      
+    <div class="form-signup">
+      <label>
+        First Name: <input type="text" name="fname" required class="form-ctrl">
+      </label>
+    </div>
     
-    </form>
+    <div class="form-signup">
+      <label>
+        Last Name: <input type="text" name="lname" required class="form-ctrl">
+      </label>
+    </div>
+    
+    <div class="form-signup">
+      <label>
+        Email Address: <input type="text" name="email" required class="form-ctrl">
+      </label>
+    </div>
+
+    <div class="form-signup">
+      <label>
+        Password: <input type="password" name="password" required class="form-ctrl">
+      </label>
+
+    </div>
+    
+    <div class="form-signup">
+      <input type="submit" name="Submit">
+    </div>
+    
+  </form>
 </div>
 
 {% endblock %}

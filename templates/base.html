@@ -1,41 +1,40 @@
 <!doctype html>
 <html>
 <head>
-    <script src="//code.jquery.com/jquery.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/user_homepage.css">
    
-    {% block head %}
-    <title>Travel Management Application</title>
-    {% endblock %}
+{% block head %}
+  <title>Travel Management Application</title>
+{% endblock %}
 </head>
+
 <body>
 
-Travel Diary
+  Travel Diary
 
-{% if "user_id" in session %}
-    <a href="/user_homepage">Your Map</a>
-    <a href="/logout">Logout</a>
+  {% if "user_id" in session %}
+      <a href="/user_homepage">Your Map</a>
+      <a href="/logout">Logout</a>
 
-{% else %}
-    <a href="/login">Login</a>
-    <a href="/signup">Sign Up!</a>
-{% endif %}
+  {% else %}
+      <a href="/login">Login</a>
+      <a href="/signup">Sign Up!</a>
+  {% endif %}
 
-<hr>
+  <hr>
 
-{% for flash in get_flashed_messages() %}
-  {{ flash }}
-{% endfor %}
+  {% for flash in get_flashed_messages() %}
+    {{ flash }}
+  {% endfor %}
 
-{% block content %}
-    Put your body here.
-{% endblock %}
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/
-3.3.7/js/bootstrap.min.js"></script>
-
+  {% block content %}
+      Put your body here.
+  {% endblock %}
   
-<!--   // <script src="/static/js/index.js"></script> -->
-
-</body>
+</body>   
+  <script src="//code.jquery.com/jquery.js"></script>   
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/static/user_homepage_map.js"></script>
 </html>
