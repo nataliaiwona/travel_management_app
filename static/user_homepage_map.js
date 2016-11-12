@@ -31,11 +31,16 @@ function initMap() {
     // Instantiating autocomplete object, including input and options vars
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
+
+    $("#myBtn").on("click", function () {
+        $("#pac-input").val("");});
+
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
         // jQuery to bind an event handler to the click event
         $('#submit').click(function(evt){
             evt.preventDefault();
+
             // Initialize address as empty string and place object.
             // Check to see if certain address components exist in the place object
             var place = autocomplete.getPlace();

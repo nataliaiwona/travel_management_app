@@ -1,3 +1,8 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
 """Models and database functions for Travel Diary project."""
 
 from flask_sqlalchemy import SQLAlchemy
@@ -86,10 +91,10 @@ class Pin(db.Model):
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""
 
-        p = "<Pins city={} name={} user_id={} pin={} pin_type_id={} location_id={} year={} visits={}>"
+        p = "<Pins city={} name={} user_id={} pin={} pin_type_id={} location_id={}>"
         return p.format(self.location.city, self.user.fname, self.user_id,
                         self.pin_type.description, self.pin_type_id,
-                        self.location_id, self.year, self.visits)
+                        self.location_id)
 
 
 def connect_to_db(app):

@@ -109,11 +109,9 @@ def user_homepage():
     print "User Homepage"
 
     user_id = session.get("user_id")
-    print user_id
 
     if user_id:
         user = User.query.get(user_id)
-        print user.fname
         # need to access user object
         # query for user info - aka existing pins
         # save new pins to db for specific user
@@ -139,9 +137,7 @@ def user_homepage():
                             latitude=lat, longitude=lng)
         db.session.add(location)
         db.session.commit()
-        print location
 
-    print location
     new_pin = Pin(user_id=user.id,
                   pin_type_id=pin_type, location_id=location.id)
 
@@ -173,7 +169,7 @@ def pin_info():
         for pin in Pin.query.all()
     }
 
-    print pins
+    # print pins
 
     return jsonify(pins)
 
