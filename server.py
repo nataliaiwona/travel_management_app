@@ -169,7 +169,7 @@ def pin_info():
         for pin in Pin.query.all()
     }
 
-    # print pins
+    print {}
 
     return jsonify(pins)
 
