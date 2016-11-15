@@ -55,13 +55,15 @@ function initMap() {
                 "longitude": place.geometry.location.lng(),
                 "pinTypeId": pinType
             };
-          
+            console.log(place.address_components);
             for (var i = 0; i < place.address_components.length; i++) {
             
                 if (place.address_components[i]["types"][0] == "locality") {
                     pin["city"] = place.address_components[i].long_name;
+                } else {
+                    (pin["city"] = place.name)
                 }
-
+            
                 if (place.address_components[i]["types"][0] == "administrative_area_level_1") {
                     pin["state"] = place.address_components[i].long_name;
                 }
@@ -85,9 +87,9 @@ function initMap() {
         3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
     };
 
-    $.get('/user_pin_info.json', function (pins) {
+    $.get('/user_pin_info.json', {user_id: userId}, function (pins) {
         for (var key in pins) {
-            var pin =  pins[key];
+            var pin = pins[key];
             addPinToMap(pin);
         }
     });
