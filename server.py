@@ -127,7 +127,6 @@ def user_homepage():
 
     pin_type = request.form.get("pinTypeId")
     city = request.form.get("city")
-    # TODO Update to or statement
     state = request.form.get("state") or None
     country = request.form.get("country")
     lat = request.form.get("latitude")
@@ -140,6 +139,7 @@ def user_homepage():
                                      Location.longitude == lng).first()
     print pin_type, city, state, country, location
 
+# Helper for pin: create_or_get_location()
     if location is None:
         location = Location(city=city, state=state, country=country,
                             latitude=lat, longitude=lng)
@@ -149,6 +149,7 @@ def user_homepage():
     existing_pin = Pin.query.filter(Pin.user_id == user_id,
                                     Pin.location_id == location.id).first()
 
+# Helper create_or_update_pin()
     if not existing_pin:
         new_pin = Pin(user_id=user.id,
                       pin_type_id=pin_type, location_id=location.id)

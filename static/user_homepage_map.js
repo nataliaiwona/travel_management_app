@@ -31,13 +31,6 @@ function initMap() {
     // Instantiating autocomplete object, including input and options vars
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
-
-    // $("#submit").on("click", function () {
-    //     console.log("before");
-    //     $("#pac-input").val("");
-    //     console.log("after");
-    // });
-
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
         // jQuery to bind an event handler to the click event
@@ -57,22 +50,19 @@ function initMap() {
             };
             // TODO add switch statement
             console.log(place.address_components);
+
             for (var i = 0; i < place.address_components.length; i++) {
                 var cityObject = place.address_components[i]["types"][0];
                 var longName = place.address_components[i].long_name;
-
+// TODO add comments
                 if (cityObject == "locality") {
                     pin["city"] = longName;
-                } else {
-                    (pin["city"] = place.name);
-                }
-            
-                if (cityObject == "administrative_area_level_1") {
+                } else if (cityObject == "administrative_area_level_1") {
                     pin["state"] = longName;
-                }
-
-                if (cityObject == "country") {
+                } else if (cityObject == "country") {
                     pin["country"] = longName;
+                } else {
+                    pin["city"] = place.name;
                 }
             }
         

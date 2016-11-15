@@ -29,7 +29,7 @@ def load_users():
     # Commit above work
     db.session.commit()
 
-
+ 
 def load_pin_types():
     """Load pin types from pin_types.csv into database."""
 
