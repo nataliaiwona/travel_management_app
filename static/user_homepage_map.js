@@ -55,21 +55,24 @@ function initMap() {
                 "longitude": place.geometry.location.lng(),
                 "pinTypeId": pinType
             };
+            // TODO add switch statement
             console.log(place.address_components);
             for (var i = 0; i < place.address_components.length; i++) {
-            
-                if (place.address_components[i]["types"][0] == "locality") {
-                    pin["city"] = place.address_components[i].long_name;
+                var cityObject = place.address_components[i]["types"][0];
+                var longName = place.address_components[i].long_name;
+
+                if (cityObject == "locality") {
+                    pin["city"] = longName;
                 } else {
-                    (pin["city"] = place.name)
+                    (pin["city"] = place.name);
                 }
             
-                if (place.address_components[i]["types"][0] == "administrative_area_level_1") {
-                    pin["state"] = place.address_components[i].long_name;
+                if (cityObject == "administrative_area_level_1") {
+                    pin["state"] = longName;
                 }
 
-                if (place.address_components[i]["types"][0] == "country") {
-                    pin["country"] = place.address_components[i].long_name;
+                if (cityObject == "country") {
+                    pin["country"] = longName;
                 }
             }
         
