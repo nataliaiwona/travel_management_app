@@ -1,11 +1,9 @@
 import sys
+from flask_sqlalchemy import SQLAlchemy
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
 """Models and database functions for Travel Diary project."""
-
-from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -49,19 +47,18 @@ class Location(db.Model):
     __tablename__ = "locations"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(35), nullable=False)
-    city = db.Column(db.String(35), nullable=False)
-    state = db.Column(db.String(35), nullable=True)
-    country = db.Column(db.String(35), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(100), nullable=True)
+    country = db.Column(db.String(100), nullable=False)
     latitude = db.Column(db.Float, nullable=True)
     longitude = db.Column(db.Float, nullable=True)
 
     def __repr__(self):
         """Provide helpful representation of location info when printed."""
 
-        l = "<Location id={} name={} city={} country={} latitude={} longitude={}>"
+        l = "<Location id={} city={} country={} latitude={} longitude={}>"
         return l.format(
-            self.id, self.name, self.city, self.country,
+            self.id, self.city, self.country,
             self.latitude, self.longitude)
 
 
@@ -91,7 +88,8 @@ class Pin(db.Model):
     def __repr__(self):
         """Provide helpful representation of pins info when printed."""
 
-        p = "<Pins city={} name={} user_id={} pin={} pin_type_id={} location_id={}>"
+        p = "<Pins city={} name={} user_id={} pin={} pin_type_id={} \
+            location_id={}>"
         return p.format(self.location.city, self.user.fname, self.user_id,
                         self.pin_type.description, self.pin_type_id,
                         self.location_id)
