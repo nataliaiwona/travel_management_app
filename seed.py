@@ -59,11 +59,10 @@ def load_locations():
             if element == "":
                 row[i] = None
 
-        id, name, city, state, country, latitude, longitude = row
+        id, city, state, country, latitude, longitude = row
 
         # TODO Make locations singular
         locations = Location(id=id,
-                             name=name,
                              city=city,
                              state=state,
                              country=country,
