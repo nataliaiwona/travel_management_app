@@ -4,11 +4,10 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request
 from flask import flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-
 from model import connect_to_db, db, User, Location, Pin
-
 import os
 import bcrypt
+import helper
 
 app = Flask(__name__)
 # Required to use Flask sessions and the debug toolbar
@@ -82,8 +81,7 @@ def login_process():
         flash("No such user")
         return redirect("/login")
     # TODO add to helper.py decoding function
-    if bcrypt.hashpw(password.encode("UTF_8"),
-                     user.password.encode("UTF_8")).decode() == user.password:
+    if helper.check_pass(user, password):
         flash("Password matches")
     else:
         flash("Incorrect password")
@@ -132,32 +130,9 @@ def user_homepage():
     lat = request.form.get("latitude")
     lng = request.form.get("longitude")
 
-    # TODO move all of this into a separate function
-    location = Location.query.filter(Location.city == city,
-                                     Location.country == country,
-                                     Location.latitude == lat,
-                                     Location.longitude == lng).first()
-    print pin_type, city, state, country, location
+    helper.create_or_get_location(city, state, country, lat, lng)
 
-# Helper for pin: create_or_get_location()
-    if location is None:
-        location = Location(city=city, state=state, country=country,
-                            latitude=lat, longitude=lng)
-        db.session.add(location)
-        db.session.commit()
-
-    existing_pin = Pin.query.filter(Pin.user_id == user_id,
-                                    Pin.location_id == location.id).first()
-
-# Helper create_or_update_pin()
-    if not existing_pin:
-        new_pin = Pin(user_id=user.id,
-                      pin_type_id=pin_type, location_id=location.id)
-        db.session.add(new_pin)
-        db.session.commit()
-    else:
-        existing_pin.pin_type_id = pin_type
-        db.session.commit()
+    helper.create_or_update_pin(user_id, location, pin_type)
 
     return "City has been added to your  map!"
 
@@ -184,6 +159,26 @@ def pin_info():
     }
 
     return jsonify(pins)
+
+
+@app.route('/remove_pin.json', methods=["POST"])
+def remove_pin():
+    """Remove a specific user pin."""
+    user_id = session.get("user_id")
+
+    pin_id = request.form.get("id")
+
+    print pin_id
+
+    return "Your pin has been removed."
+
+
+@app.route('/edit_pin.json', methods=["POST"])
+def edit_pin():
+    """Edit a specific user pin."""
+
+
+
 
 
 if __name__ == "__main__":
