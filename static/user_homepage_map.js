@@ -16,6 +16,26 @@ function initMap() {
             map: map,
             icon: pinIcons[pin.pinTypeId]
         });
+
+        var html = (
+                '<div class = "window-content">' +
+                '<h1 id="place-name" class="place-name">' + pin.city +
+                '</h1>' +
+                '<div class="window-body">' +
+                '<button data-edit=' + pin.pinId +
+                ' type="button" class="btn btn-default edit"' +
+                'name="edit-pin">Edit Pin</button>' +
+                '<button data-remove=' + pin.pinId +
+                ' type="button"' +
+                'class="btn btn-default remove" name="remove-pin">Remove Pin</button>' +
+                '<label>Notes:' +
+                '<textarea id ="note" name="note" rows="5" cols="30"></textarea>' +
+                '</label>' +
+                '</div>' +
+                '</div>');
+
+        bindInfoWindow(marker, map, infoWindow, html);
+
         return marker;
     }
 
@@ -93,34 +113,18 @@ function initMap() {
         for (var key in pins) {
             var pin = pins[key];
             addPinToMap(pin);
-
-            var html = (
-                '<div class = "window-content">' +
-                '<h1 id="place-name" class="place-name">' + pin.city +
-                '</h1>' +
-                '<div class="window-body">' +
-                '<button id="edit_' + pin.pinId + 
-                '" type="button" class="btn btn-default edit"' +
-                'name="edit-pin">Edit Pin</button>' +
-                '<button id="remove_' + pin.pinId +
-                '" type="button"' +
-                'class="btn btn-default remove" name="remove-pin">Remove Pin</button>' +
-                '<label>Notes:' +
-                '<textarea id ="note" name="note" rows="5" cols="30"></textarea>' +
-                '</label>' +
-                '</div>' +
-                '</div>');
-
-            bindInfoWindow(marker, map, infoWindow, html);
         }
     });
 
-    function editPin (evt){
-        $.post('/edit_pin.json');
+    function editPin(evt){
+        $.post('/edit_pin.json', {'id': $(this).data("edit")}
+        );
     }
 
-    function removePin (evt){
-        $.post('/remove_pin.json', {'id': this.id});
+    function removePin(evt){
+        $.post('/remove_pin.json', {'id': $(this).data("remove")}
+        );
+        
     }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
