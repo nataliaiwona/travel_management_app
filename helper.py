@@ -13,17 +13,19 @@ app.secret_key = "MEMORY"
 
 
 def check_pass(user, password):
+    """Check that password matches user."""
 
     return bcrypt.hashpw(password.encode("UTF_8"),
                      user.password.encode("UTF_8")).decode() == user.password
 
 
-def create_or_update_pin(user_id, location, pin_type):
+def check_duplicate_pins(user_id, location, pin_type):
+    """Check for existing pin before adding another pin row to database."""
 
     existing_pin = Pin.query.filter(Pin.user_id == user_id,
                                     Pin.location_id == location.id).first()
     if not existing_pin:
-        new_pin = Pin(user_id=user.id,
+        new_pin = Pin(user_id=user_id,
                       pin_type_id=pin_type, location_id=location.id)
         db.session.add(new_pin)
         db.session.commit()
@@ -33,6 +35,8 @@ def create_or_update_pin(user_id, location, pin_type):
 
 
 def create_or_get_location(city, state, country, lat, lng):
+    """Create new location or get existing location from database"""
+
     location = Location.query.filter(Location.city == city,
                                      Location.country == country,
                                      Location.latitude == lat,
@@ -42,3 +46,38 @@ def create_or_get_location(city, state, country, lat, lng):
                             latitude=lat, longitude=lng)
         db.session.add(location)
         db.session.commit()
+
+    return location
+
+
+def edit_pin(user_id, pin_id, pin_type):
+    """Edit specific pin in user database."""
+
+    location = Location.query.filter(Location.city == city,
+                                     Location.country == country,
+                                     Location.latitude == lat,
+                                     Location.longitude == lng).first()
+
+    current_pin = Pin.query.filter(Pin.user_id == user_id,
+                                   Pin.location_id == location.id).first()
+    current_pin.pin_type_id = pin_type
+    db.session.commit()
+
+
+def remove_pin(user_id, pin_id, pin_type):
+    """Remove specific pin from user database."""
+
+    current_pin = Pin.query.filter(Pin.user_id == user_id,
+                                   Pin.id == pin_id).first()
+    db.session.delete(current_pin)
+    db.session.commit()
+
+
+
+
+
+
+
+
+
+

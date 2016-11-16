@@ -130,9 +130,9 @@ def user_homepage():
     lat = request.form.get("latitude")
     lng = request.form.get("longitude")
 
-    helper.create_or_get_location(city, state, country, lat, lng)
+    location = helper.create_or_get_location(city, state, country, lat, lng)
 
-    helper.create_or_update_pin(user_id, location, pin_type)
+    helper.check_duplicate_pins(user.id, location, pin_type)
 
     return "City has been added to your  map!"
 
@@ -161,23 +161,29 @@ def pin_info():
     return jsonify(pins)
 
 
-@app.route('/remove_pin.json', methods=["POST"])
-def remove_pin():
-    """Remove a specific user pin."""
-    user_id = session.get("user_id")
-
-    pin_id = request.form.get("id")
-
-    print pin_id
-
-    return "Your pin has been removed."
-
-
 @app.route('/edit_pin.json', methods=["POST"])
 def edit_pin():
     """Edit a specific user pin."""
 
+    user_id = session.get("user_id")
+    pin_id = request.form.get("id")
+    pin_type = request.form.get("pinTypeId")
 
+    helper.edit_pin(user_id, pin_id, pin_type)
+
+    return "Your pin has been edited."
+
+
+@app.route('/remove_pin.json', methods=["POST"])
+def remove_pin():
+    """Remove a specific user pin."""
+    user_id = session.get("user_id")
+    pin_id = request.form.get("id")
+    pin_type = request.form.get("pinTypeId")
+
+    helper.remove_pin(user_id, pin_id, pin_type)
+
+    return "Your pin has been removed."
 
 
 
