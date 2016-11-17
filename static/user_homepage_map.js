@@ -3,6 +3,7 @@
 
 
 var marker;
+var markers = {};
 var map;
 var pin;
 
@@ -13,11 +14,15 @@ function initMap() {
     });
 
     function addPinToMap(pin) {
+        var LatLng = new google.maps.LatLng(pin.latitude, pin.longitude);
+        
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(pin.latitude, pin.longitude),
+            position: LatLng,
             map: map,
             icon: pinIcons[pin.pinTypeId]
         });
+
+        markers[LatLng] = marker;
 
         var html = (
                 '<div class = "window-content">' +
@@ -121,17 +126,29 @@ function initMap() {
         }
     });
 
-    // function editPin(evt){
-    //     $.post('/edit_pin.json', pin, {'id': $(this).data("edit")}, function(){
-    //         addPinToMap(pin);
-    //     });
-    // }
-
-    // function removePin(evt){
-    //     $.post('/remove_pin.json', {'id': $(this).data("remove")}
-    //     );
+    function refreshMap(results) {
+        console.log(results);
         
-    // }
+        var lat = parseFloat(results.lat);
+        console.log(lat);
+        var lng = parseFloat(results.lng);
+        console.log(lng);
+
+        markers[new google.maps.LatLng(lat, lng)].setMap(null);
+        console.log("Done with refreshMap");
+    }
+
+    function editPin(evt){
+        $.post('/edit_pin.json', pin, {'id': $(this).data("edit")}, function(){
+            addPinToMap(pin);
+        });
+    }
+
+    function removePin(evt){
+        console.log($(this).data("remove"));
+        $.post('/remove_pin.json', {'id': $(this).data("remove")}, refreshMap);
+        
+    }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function () {
@@ -139,8 +156,8 @@ function initMap() {
             infoWindow.setContent(html);
             infoWindow.open(map, marker);
 
-            // $(".edit").on('click', editPin);
-            // $(".remove").on('click', removePin);
+            $(".edit").on('click', editPin);
+            $(".remove").on('click', removePin);
         });
 
     }
