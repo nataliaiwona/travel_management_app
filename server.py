@@ -44,15 +44,12 @@ def signup_process():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    # TODO Add separate helper.py file to both encrypt and decrypt passwords
     new_user = User(fname=fname, lname=lname, email=email,
                     password=bcrypt.hashpw(password.encode("UTF_8"),
                                            bcrypt.gensalt()))
 
     db.session.add(new_user)
     db.session.commit()
-
-    # user = User.query.filter_by(email=email).first()
 
     session["user_id"] = new_user.id
 
@@ -161,29 +158,30 @@ def pin_info():
     return jsonify(pins)
 
 
-@app.route('/edit_pin.json', methods=["POST"])
-def edit_pin():
-    """Edit a specific user pin."""
+# @app.route('/edit_pin.json', methods=["POST"])
+# def udpate_pin():
+#     """Edit or delete a specific user pin."""
 
-    user_id = session.get("user_id")
-    pin_id = request.form.get("id")
-    pin_type = request.form.get("pinTypeId")
+#     pin_id = request.form.get("id")
+#     pin_type = request.form.get("pinTypeId")
+#     # remove = request.form.get("remove")
 
-    helper.edit_pin(user_id, pin_id, pin_type)
+#     helper.edit_pin(pin_id)
 
-    return "Your pin has been edited."
+#     return "Your pin has been edited."
 
 
-@app.route('/remove_pin.json', methods=["POST"])
-def remove_pin():
-    """Remove a specific user pin."""
-    user_id = session.get("user_id")
-    pin_id = request.form.get("id")
-    pin_type = request.form.get("pinTypeId")
+# @app.route('/remove_pin.json', methods=["POST"])
+# def remove_pin():
+#     """Remove a specific user pin."""
+#     user_id = session.get("user_id")
+#     pin_id = request.form.get("id")
+#     pin_type = request.form.get("pinTypeId")
 
-    helper.remove_pin(user_id, pin_id, pin_type)
+#     helper.remove_pin(pin_id)
 
-    return "Your pin has been removed."
+#     return "Your pin has been removed."
+
 
 
 
