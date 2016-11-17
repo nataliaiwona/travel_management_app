@@ -2,7 +2,9 @@
 // NB: Used snippets of Google Maps/Places Autocomplete demo
 
 
-var marker; 
+var marker;
+var map;
+var pin;
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -39,6 +41,7 @@ function initMap() {
         return marker;
     }
 
+    // Make an autocomplete function
     // Initializing input variable by selecting the pac-input box.
     // Can't make this jquery bc the instantiating autocomplete can't be jquery
     var input = document.getElementById('pac-input');
@@ -60,6 +63,7 @@ function initMap() {
       width: 150
     });
 
+    // Make the callback a named function
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
         // jQuery to bind an event handler to the click event
@@ -72,7 +76,7 @@ function initMap() {
             var place = autocomplete.getPlace();
             var pinType = $("input[name=pin_type]:checked").val();
 
-            var pin = {
+            pin = {
                 "latitude": place.geometry.location.lat(),
                 "longitude": place.geometry.location.lng(),
                 "pinTypeId": pinType
@@ -103,6 +107,7 @@ function initMap() {
         });
     });
     
+    // Put outside
     var pinIcons = {
         1: 'http://maps.google.com/mapfiles/ms/micons/blue.png',
         2: 'http://maps.google.com/mapfiles/ms/micons/green.png',
@@ -116,16 +121,17 @@ function initMap() {
         }
     });
 
-    function editPin(evt){
-        $.post('/edit_pin.json', {'id': $(this).data("edit")}
-        );
-    }
+    // function editPin(evt){
+    //     $.post('/edit_pin.json', pin, {'id': $(this).data("edit")}, function(){
+    //         addPinToMap(pin);
+    //     });
+    // }
 
-    function removePin(evt){
-        $.post('/remove_pin.json', {'id': $(this).data("remove")}
-        );
+    // function removePin(evt){
+    //     $.post('/remove_pin.json', {'id': $(this).data("remove")}
+    //     );
         
-    }
+    // }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function () {
@@ -133,8 +139,8 @@ function initMap() {
             infoWindow.setContent(html);
             infoWindow.open(map, marker);
 
-            $(".edit").on('click', editPin);
-            $(".remove").on('click', removePin);
+            // $(".edit").on('click', editPin);
+            // $(".remove").on('click', removePin);
         });
 
     }
