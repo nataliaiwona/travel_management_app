@@ -50,27 +50,29 @@ def create_or_get_location(city, state, country, lat, lng):
     return location
 
 
-def edit_pin(user_id, pin_id, pin_type):
-    """Edit specific pin in user database."""
+# def edit_pin(pin_id):
+#     """Edit specific pin in user database."""
 
-    location = Location.query.filter(Location.city == city,
-                                     Location.country == country,
-                                     Location.latitude == lat,
-                                     Location.longitude == lng).first()
+#     # location = Location.query.filter(Location.city == city,
+#     #                                  Location.country == country,
+#     #                                  Location.latitude == lat,
+#     #                                  Location.longitude == lng).first()
 
-    current_pin = Pin.query.filter(Pin.user_id == user_id,
-                                   Pin.location_id == location.id).first()
-    current_pin.pin_type_id = pin_type
-    db.session.commit()
+#     # , pin_type, remove
+
+#     current_pin = Pin.query.get(pin_id)
+
+#     current_pin.pin_type_id = pin_type
+#     db.session.commit()
 
 
-def remove_pin(user_id, pin_id, pin_type):
-    """Remove specific pin from user database."""
+# def remove_pin(pin_id):
+#     """Remove specific pin from user database."""
 
-    current_pin = Pin.query.filter(Pin.user_id == user_id,
-                                   Pin.id == pin_id).first()
-    db.session.delete(current_pin)
-    db.session.commit()
+#     current_pin = Pin.query.get(pin_id)
+
+#     db.session.delete(current_pin)
+#     db.session.commit()
 
 
 
