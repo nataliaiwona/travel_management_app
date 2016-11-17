@@ -158,29 +158,34 @@ def pin_info():
     return jsonify(pins)
 
 
-# @app.route('/edit_pin.json', methods=["POST"])
-# def udpate_pin():
-#     """Edit or delete a specific user pin."""
+@app.route('/edit_pin.json', methods=["POST"])
+def udpate_pin():
+    """Edit or delete a specific user pin."""
 
-#     pin_id = request.form.get("id")
-#     pin_type = request.form.get("pinTypeId")
-#     # remove = request.form.get("remove")
+    pin_id = request.form.get("id")
+    pin_type = request.form.get("pinTypeId")
+    # remove = request.form.get("remove")
 
-#     helper.edit_pin(pin_id)
+    helper.edit_pin(pin_id)
 
-#     return "Your pin has been edited."
+    return "Your pin has been edited."
 
 
-# @app.route('/remove_pin.json', methods=["POST"])
-# def remove_pin():
-#     """Remove a specific user pin."""
-#     user_id = session.get("user_id")
-#     pin_id = request.form.get("id")
-#     pin_type = request.form.get("pinTypeId")
+@app.route('/remove_pin.json', methods=["POST"])
+def remove_pin():
+    """Remove a specific user pin."""
 
-#     helper.remove_pin(pin_id)
+    # user_id = session.get("user_id")
+    pin_id = request.form.get("id")
 
-#     return "Your pin has been removed."
+    lnglat = helper.remove_pin(pin_id)
+    pin_data = { 'lng': lnglat[0],
+                 'lat': lnglat[1]}
+
+
+    # pin_type = request.form.get("pinTypeId")
+
+    return jsonify(pin_data)
 
 
 
