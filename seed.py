@@ -86,15 +86,13 @@ def load_pins():
             if element == "":
                 row[i] = None
 
-        id, user_id, pin_type_id, location_id, year, visits = row
+        id, user_id, pin_type_id, location_id = row
 
         # TODO make pins singular
         pins = Pin(id=id,
                    user_id=user_id,
                    pin_type_id=pin_type_id,
-                   location_id=location_id,
-                   year=year,
-                   visits=visits
+                   location_id=location_id
                    )
 
         db.session.add(pins)
