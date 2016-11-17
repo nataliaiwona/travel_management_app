@@ -35,6 +35,19 @@ import helper
     #                                     "email": "ok@ok.com", "password": "hi"},
     #                               follow_redirects=True)
 
+    def test_create_or_get_known_location(self):
+        """ """
+
+        result = create_or_get_location("San Francisco", "California", "United States", "37.773972", "-122.431297") 
+
+        assert result.id = "3"
+
+    def test_create_or_get_location(self):
+        """ """
+        # query location of what you just added and test it
+
+
+
 
 class AppIntegrationTestCase(TestCase):
 
@@ -63,11 +76,11 @@ class AppIntegrationTestCase(TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn("<h1>Login</h1>", result.data)
 
-    def test_homepage(self):
-        """Testing the user homepage, GET method."""
-        result = self.client.get('/user_homepage')
-        self.assertEqual(result.status_code, 200)
-        self.assertIn("<title>Search by City</title>", result.data)
+    # def test_homepage(self):
+    #     """Testing the user homepage, GET method."""
+    #     result = self.client.get('/user_homepage')
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn("<title>Search by City</title>", result.data)
 
 
 
