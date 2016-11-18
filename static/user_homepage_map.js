@@ -25,21 +25,32 @@ function initMap() {
         markers[LatLng] = marker;
 
         var html = (
-                '<div class = "window-content">' +
-                '<h1 id="place-name" class="place-name">' + pin.city +
-                '</h1>' +
-                '<div class="window-body">' +
-                '<button data-edit=' + pin.pinId +
-                ' type="button" class="btn btn-default edit"' +
-                'name="edit-pin">Edit Pin</button>' +
-                '<button data-remove=' + pin.pinId +
-                ' type="button"' +
-                'class="btn btn-default remove" name="remove-pin">Remove Pin</button>' +
-                '<label>Notes:' +
-                '<textarea id ="note" name="note" rows="5" cols="30"></textarea>' +
-                '</label>' +
-                '</div>' +
-                '</div>');
+            '<div class = "window-content">' +
+            '<h1 id="place-name" class="place-name">' + pin.city +
+            '</h1>' +
+            '<div class="window-body">' +
+            '<div class="dropdown open">' +
+            '<button data-edit=' + pin.pinId +
+            ' type="button" class="btn btn-secondary dropdown-toggle edit"' +
+            'name="edit-pin" id="dropdownMenu2" data-toggle="dropdown"' +
+            'aria-haspopup="true" aria-expanded="false">Edit Pin</button>' +
+            '<div class="dropdown-menu" aria-labelledby="dropdownMenu2">' +
+            '<button class="dropdown-item" type="button"' + 
+            'name="pin_type" id="pin_type_1" value="1">Wish List</button>' +
+            '<button class="dropdown-item" type="button"' +
+            'name="pin_type" id="pin_type_2" value="2">Going back!</button>' +
+            '<button class="dropdown-item" type="button"' + 
+            'name="pin_type" id="pin_type_3" value="3">Never Going Back</button>' +
+            '</div>' +
+            '</div>' +
+            '<button data-remove=' + pin.pinId +
+            ' type="button"' +
+            'class="btn btn-default remove" name="remove-pin">Remove Pin</button>' +
+            '<label>Notes:' +
+            '<textarea id ="note" name="note" rows="5" cols="50"></textarea>' +
+            '</label>' +
+            '</div>' +
+            '</div>');
 
         bindInfoWindow(marker, map, infoWindow, html);
 
@@ -65,7 +76,8 @@ function initMap() {
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
     var infoWindow = new google.maps.InfoWindow({
-      width: 150
+      width: 350,
+      height: 200
     });
 
     // Make the callback a named function
@@ -145,9 +157,8 @@ function initMap() {
     }
 
     function removePin(evt){
-        console.log($(this).data("remove"));
+  
         $.post('/remove_pin.json', {'id': $(this).data("remove")}, refreshMap);
-        
     }
 
     function bindInfoWindow(marker, map, infoWindow, html) {
@@ -159,9 +170,8 @@ function initMap() {
             $(".edit").on('click', editPin);
             $(".remove").on('click', removePin);
         });
-
     }
-
+    google.maps.event.addDomListener(window, 'load', initMap);
 }
 
-// google.maps.event.addDomListener(window, 'load', initMap);
+
