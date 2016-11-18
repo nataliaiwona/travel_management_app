@@ -164,7 +164,6 @@ def udpate_pin():
 
     pin_id = request.form.get("id")
     pin_type = request.form.get("pinTypeId")
-    # remove = request.form.get("remove")
 
     helper.edit_pin(pin_id)
 
@@ -175,19 +174,13 @@ def udpate_pin():
 def remove_pin():
     """Remove a specific user pin."""
 
-    # user_id = session.get("user_id")
     pin_id = request.form.get("id")
 
     lnglat = helper.remove_pin(pin_id)
-    pin_data = { 'lng': lnglat[0],
-                 'lat': lnglat[1]}
-
-
-    # pin_type = request.form.get("pinTypeId")
+    pin_data = {'lng': lnglat[0],
+                'lat': lnglat[1]}
 
     return jsonify(pin_data)
-
-
 
 
 if __name__ == "__main__":

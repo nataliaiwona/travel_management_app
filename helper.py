@@ -11,12 +11,13 @@ app = Flask(__name__)
 app.secret_key = "MEMORY"
 
 
-
 def check_pass(user, password):
     """Check that password matches user."""
 
-    return bcrypt.hashpw(password.encode("UTF_8"),
-                     user.password.encode("UTF_8")).decode() == user.password
+    p = bcrypt.hashpw(password.encode("UTF_8"),
+                      user.password.encode("UTF_8")).decode() == user.password
+
+    return p
 
 
 def check_duplicate_pins(user_id, location, pin_type):
@@ -53,13 +54,6 @@ def create_or_get_location(city, state, country, lat, lng):
 def edit_pin(pin_id):
     """Edit specific pin in user database."""
 
-    # location = Location.query.filter(Location.city == city,
-    #                                  Location.country == country,
-    #                                  Location.latitude == lat,
-    #                                  Location.longitude == lng).first()
-
-    # , pin_type, remove
-
     current_pin = Pin.query.get(pin_id)
 
     current_pin.pin_type_id = pin_type
@@ -78,13 +72,3 @@ def remove_pin(pin_id):
     db.session.commit()
 
     return [lng, lat]
-
-
-
-
-
-
-
-
-
-
