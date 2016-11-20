@@ -6,6 +6,11 @@ var marker;
 var markers = {};
 var map;
 var pin;
+var editMap = {
+    "1": "Wish List",
+    "2": "Going Back",
+    "3": "Never Going Back"
+};
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -25,32 +30,34 @@ function initMap() {
         markers[LatLng] = marker;
 
         var html = (
+            
             '<div class = "window-content">' +
             '<h1 id="place-name" class="place-name">' + pin.city +
             '</h1>' +
             '<div class="window-body">' +
-            '<div class="dropdown open">' +
-            '<button data-edit=' + pin.pinId +
-            ' type="button" class="btn btn-secondary dropdown-toggle edit"' +
-            'name="edit-pin" id="dropdownMenu2" data-toggle="dropdown"' +
-            'aria-haspopup="true" aria-expanded="false">Edit Pin</button>' +
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenu2">' +
-            '<button class="dropdown-item" type="button"' + 
-            'name="pin_type" id="pin_type_1" value="1">Wish List</button>' +
-            '<button class="dropdown-item" type="button"' +
-            'name="pin_type" id="pin_type_2" value="2">Going back!</button>' +
-            '<button class="dropdown-item" type="button"' + 
-            'name="pin_type" id="pin_type_3" value="3">Never Going Back</button>' +
+            '<form action="#" method="post">' +
+            // 'Notes:<input type="text" name="notes"' + 
+            // 'maxlength="500" size="100"/> <br/>' +
+            'Update Your Pin:<br/>' +
+            '<select name="pin_types">' +
+            '<option value=' + pin.pinTypeId + '>' +
+            editMap[pin.pinTypeId] + '</option>' +
+            // '<option value="2">Going Back</option>' +
+            // '<option value="3">Never Going Back</option>' +
+            '</select><br/>' +
+            '<input type="hidden" name="pin_id" value=' + pin.pinId + '>' +
+            '<p><input type="submit"></p>' +
+            '</form>' +
             '</div>' +
             '</div>' +
             '<button data-remove=' + pin.pinId +
             ' type="button"' +
-            'class="btn btn-default remove" name="remove-pin">Remove Pin</button>' +
-            '<label>Notes:' +
-            '<textarea id ="note" name="note" rows="5" cols="50"></textarea>' +
-            '</label>' +
-            '</div>' +
-            '</div>');
+            'class="btn btn-default remove" name="remove-pin">' +
+            'Remove Pin</button>');
+
+        // var html = '<form>'+
+        // +'<input type="text"><input type="submit"></form>';
+
 
         bindInfoWindow(marker, map, infoWindow, html);
 
@@ -126,8 +133,8 @@ function initMap() {
     
     // Put outside
     var pinIcons = {
-        1: 'http://maps.google.com/mapfiles/ms/micons/blue.png',
-        2: 'http://maps.google.com/mapfiles/ms/micons/green.png',
+        1: 'http://maps.google.com/mapfiles/ms/micons/green.png',
+        2: 'http://maps.google.com/mapfiles/ms/micons/blue.png',
         3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
     };
 
@@ -151,13 +158,13 @@ function initMap() {
     }
 
     function editPin(evt){
+        console.log("hi");
         $.post('/edit_pin.json', pin, {'id': $(this).data("edit")}, function(){
             addPinToMap(pin);
         });
     }
 
     function removePin(evt){
-  
         $.post('/remove_pin.json', {'id': $(this).data("remove")}, refreshMap);
     }
 
@@ -171,7 +178,7 @@ function initMap() {
             $(".remove").on('click', removePin);
         });
     }
-    google.maps.event.addDomListener(window, 'load', initMap);
+    // google.maps.event.addDomListener(window, 'load', initMap);
 }
 
 
