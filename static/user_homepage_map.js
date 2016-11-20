@@ -12,6 +12,32 @@ var editMap = {
     "3": "Never Going Back"
 };
 
+function getSecondValue(value){
+    return value === 1 ? "2" : "1";
+}
+
+function getThirdValue(value){
+    return value === 1 || value === 2 ? "3" : "2";
+}
+
+function getSecondOption(pinTypeId){
+    return pinTypeId === 1 ? editMap["2"] : editMap["1"];
+}
+
+function getThirdOption(pinTypeId){
+    return pinTypeId === 1 || pinTypeId === 2 ? editMap["3"] : editMap["2"];
+
+    // if (pinTypeId === 1){
+    //     return editMap["3"];
+    // }
+    // else if (pinTypeId === 2){
+    //     return editMap["3"];
+    // }
+    // else if (pinTypeId === 3){
+    //     return editMap["2"];
+    // }
+}
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
@@ -42,8 +68,10 @@ function initMap() {
             '<select name="pin_types">' +
             '<option value=' + pin.pinTypeId + '>' +
             editMap[pin.pinTypeId] + '</option>' +
-            // '<option value="2">Going Back</option>' +
-            // '<option value="3">Never Going Back</option>' +
+            '<option value=' + getSecondValue(pin.pinTypeId) + '>' +
+            getSecondOption(pin.pinTypeId) + '</option>' +
+            '<option value=' + getThirdValue(pin.pinTypeId) + '>' +
+            getThirdOption(pin.pinTypeId) + '</option>' +
             '</select><br/>' +
             '<input type="hidden" name="pin_id" value=' + pin.pinId + '>' +
             '<p><input type="submit"></p>' +
