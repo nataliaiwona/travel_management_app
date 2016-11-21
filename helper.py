@@ -30,11 +30,13 @@ def check_duplicate_pins(user_id, location, pin_type):
                       pin_type_id=pin_type, location_id=location.id)
         db.session.add(new_pin)
         db.session.commit()
+
+        return new_pin
+
     else:
         # TODO need error handling so can't edit pin through modal
         existing_pin.pin_type_id = pin_type
         db.session.commit()
-
 
 def create_or_get_location(city, state, country, lat, lng):
     """Create new location or get existing location from database"""
@@ -60,11 +62,12 @@ def edit_pin(pin_id, pin_type, city):
     lng = current_pin.location.longitude
     lat = current_pin.location.latitude
     city = current_pin.location.city
+    pin_id = current_pin.id
 
     current_pin.pin_type_id = pin_type
     db.session.commit()
 
-    return [lng, lat, pin_type, city]
+    return [lng, lat, pin_type, city, pin_id]
 
 
 def remove_pin(pin_id):

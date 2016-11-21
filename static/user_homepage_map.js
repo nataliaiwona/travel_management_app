@@ -119,8 +119,9 @@ function initMap() {
         var form = $('form').serializeArray();
         var params = {'editPinTypeId': form[0]["value"],
                       'editPinId': form[1]["value"],
-                      'editPinCity': form[2]["value"]};
-                      
+                      'editPinCity': form[2]["value"]
+                    };
+
         console.log("These are the params", params);
 
         $.post('/edit_pin.json', params, refreshMap);
@@ -133,6 +134,7 @@ function initMap() {
             "latitude": parseFloat(results.lat),
             "longitude": parseFloat(results.lng),
             "pinTypeId": parseInt(results.pin_type),
+            "pinId": parseInt(results.pin_id),
             "city": String(results.city)
         }
 
@@ -190,8 +192,11 @@ function initMap() {
                 }
             }
         
-            $.post("/user_homepage", pin, function() {
-                addPinToMap(pin);
+            $.post("/user_homepage", pin, function(results) {
+                if (results !== "None") {
+                    pin.pinId = results;
+                }
+                addPinToMap(pin, results);
             });
 
         });

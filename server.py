@@ -128,10 +128,9 @@ def user_homepage():
     lng = request.form.get("longitude")
 
     location = helper.create_or_get_location(city, state, country, lat, lng)
+    new_pin = helper.check_duplicate_pins(user.id, location, pin_type)
 
-    helper.check_duplicate_pins(user.id, location, pin_type)
-
-    return "City has been added to your  map!"
+    return str(new_pin.id) if new_pin else "None"
 
 
 @app.route('/user_pin_info.json')
@@ -170,7 +169,8 @@ def update_pin():
     pin_data = {'lng': data[0],
                 'lat': data[1],
                 'pin_type': data[2],
-                'city': data[3]
+                'city': data[3],
+                'pin_id': data[4]
                 }
 
     return jsonify(pin_data)
@@ -184,7 +184,8 @@ def remove_pin():
 
     lnglat = helper.remove_pin(pin_id)
     pin_data = {'lng': lnglat[0],
-                'lat': lnglat[1]}
+                'lat': lnglat[1]
+                }
 
     return jsonify(pin_data)
 
