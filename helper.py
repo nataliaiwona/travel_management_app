@@ -52,18 +52,19 @@ def create_or_get_location(city, state, country, lat, lng):
     return location
 
 
-def edit_pin(pin_id, pin_type):
+def edit_pin(pin_id, pin_type, city):
     """Edit specific pin in user database."""
 
     current_pin = Pin.query.get(pin_id)
 
     lng = current_pin.location.longitude
     lat = current_pin.location.latitude
+    city = current_pin.location.city
 
     current_pin.pin_type_id = pin_type
     db.session.commit()
 
-    return [lng, lat, pin_type]
+    return [lng, lat, pin_type, city]
 
 
 def remove_pin(pin_id):

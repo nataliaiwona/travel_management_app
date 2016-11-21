@@ -164,11 +164,14 @@ def update_pin():
 
     pin_id = request.form.get("editPinId")
     pin_type = request.form.get("editPinTypeId")
+    city = request.form.get("editPinCity")
 
-    data = helper.edit_pin(pin_id, pin_type)
+    data = helper.edit_pin(pin_id, pin_type, city)
     pin_data = {'lng': data[0],
                 'lat': data[1],
-                'pin_type': data[2]}
+                'pin_type': data[2],
+                'city': data[3]
+                }
 
     return jsonify(pin_data)
 

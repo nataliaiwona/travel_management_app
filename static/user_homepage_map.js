@@ -73,7 +73,7 @@ function initMap() {
             '</h1>' +
             '<div class="window-body">' +
             '<form action="#" method="post">' +
-            // 'Notes:<input type="text" name="notes"' + 
+            // Add this at some point.'Notes:<input type="text" name="notes"' + 
             // 'maxlength="500" size="100"/> <br/>' +
             'Update Your Pin:<br/>' +
             '<select name="pin_types">' +
@@ -85,6 +85,7 @@ function initMap() {
             getThirdOption(pin.pinTypeId) + '</option>' +
             '</select><br/>' +
             '<input type="hidden" name="pin_id" value=' + pin.pinId + '>' +
+            '<input type="hidden" name="city" value=' + pin.city + '>' +
             '<p><input class="submit-edit" type="submit"></p>' +
             '</form>' +
             '</div>' +
@@ -116,7 +117,10 @@ function initMap() {
         evt.preventDefault();
 
         var form = $('form').serializeArray();
-        var params = {'editPinTypeId': form[0]["value"], 'editPinId': form[1]["value"]};
+        var params = {'editPinTypeId': form[0]["value"],
+                      'editPinId': form[1]["value"],
+                      'editPinCity': form[2]["value"]};
+                      
         console.log("These are the params", params);
 
         $.post('/edit_pin.json', params, refreshMap);
@@ -128,8 +132,9 @@ function initMap() {
         var pin = {
             "latitude": parseFloat(results.lat),
             "longitude": parseFloat(results.lng),
-            "pinTypeId": parseInt(results.pin_type)
-        };
+            "pinTypeId": parseInt(results.pin_type),
+            "city": String(results.city)
+        }
 
         removePinFromMap(results);
         addPinToMap(pin);
