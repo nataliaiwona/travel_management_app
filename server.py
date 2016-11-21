@@ -159,15 +159,18 @@ def pin_info():
 
 
 @app.route('/edit_pin.json', methods=["POST"])
-def udpate_pin():
+def update_pin():
     """Edit or delete a specific user pin."""
 
-    pin_id = request.form.get("id")
-    pin_type = request.form.get("pinTypeId")
+    pin_id = request.form.get("editPinId")
+    pin_type = request.form.get("editPinTypeId")
 
-    helper.edit_pin(pin_id)
+    data = helper.edit_pin(pin_id, pin_type)
+    pin_data = {'lng': data[0],
+                'lat': data[1],
+                'pin_type': data[2]}
 
-    return "Your pin has been edited."
+    return jsonify(pin_data)
 
 
 @app.route('/remove_pin.json', methods=["POST"])
