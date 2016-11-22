@@ -130,7 +130,9 @@ def user_homepage():
     location = helper.create_or_get_location(city, state, country, lat, lng)
     new_pin = helper.check_duplicate_pins(user.id, location, pin_type)
 
-    return str(new_pin.id) if new_pin else "None"
+    result = {"new_pin_id": new_pin.id}
+
+    return jsonify(result) 
 
 
 @app.route('/user_pin_info.json')

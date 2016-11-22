@@ -19,18 +19,24 @@ var pinIcons = {
 };
 
 function getSecondValue(value) {
+    value = parseInt(value);
+    console.log("secondvalue typeof", typeof value);
     return value === 1 ? "2" : "1";
 }
 
 function getSecondOption(pinTypeId) {
+    pinTypeId = parseInt(pinTypeId);
     return pinTypeId === 1 ? editMap["2"] : editMap["1"];
 }
 
 function getThirdValue(value) {
+    value = parseInt(value);
+    console.log("third value", typeof value);
     return value === 3 ? "2" : "3";
 }
 
 function getThirdOption(pinTypeId) {
+    pinTypeId = parseInt(pinTypeId);
     return pinTypeId === 3 ? editMap["2"] : editMap["3"];
 }
 
@@ -58,11 +64,13 @@ function initMap() {
         });
 
         console.log("value of pin.pinId", pin.pinId);
+        console.log("typeof pin.pinid", typeof pin.pinId);
+        console.log("typeof pin.pintypeid", typeof pin.pinTypeId);
         console.log("value of pin.pinTypeId", pin.pinTypeId);
         console.log("value of getSecondValue", getSecondValue(pin.pinTypeId));
-        console.log("value of getSecondOption", getSecondOption(pin.pinTypeId));
+        // console.log("value of getSecondOption", getSecondOption(pin.pinTypeId));
         console.log("value of getThirdValue", getThirdValue(pin.pinTypeId));
-        console.log("value of getThirdOption", getThirdOption(pin.pinTypeId));
+        // console.log("value of getThirdOption", getThirdOption(pin.pinTypeId));
         //console.log("value of pin. ", );
 
         markers[LatLng] = marker;
@@ -128,7 +136,7 @@ function initMap() {
     }
 
     function refreshMap(results){
-        console.log(results);
+        console.log("This is refreshMap result", results);
 
         var pin = {
             "latitude": parseFloat(results.lat),
@@ -136,7 +144,7 @@ function initMap() {
             "pinTypeId": parseInt(results.pin_type),
             "pinId": parseInt(results.pin_id),
             "city": String(results.city)
-        }
+        };
 
         removePinFromMap(results);
         addPinToMap(pin);
@@ -175,7 +183,7 @@ function initMap() {
                 "pinTypeId": pinType
             };
 
-            console.log(place.address_components);
+            console.log("place.address_components", place.address_components);
 
             for (var i = 0; i < place.address_components.length; i++) {
                 var placeObject = place.address_components[i]["types"][0];
@@ -192,11 +200,11 @@ function initMap() {
                 }
             }
         
-            $.post("/user_homepage", pin, function(results) {
-                if (results !== "None") {
-                    pin.pinId = results;
+            $.post("/user_homepage", pin, function(result) {
+                if (result) {
+                    pin.pinId = result.new_pin_id;
                 }
-                addPinToMap(pin, results);
+                addPinToMap(pin);
             });
 
         });
