@@ -82,7 +82,3 @@ def remove_pin(pin_id):
     db.session.commit()
 
     return [lng, lat]
-
-
-
-
