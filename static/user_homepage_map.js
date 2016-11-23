@@ -20,7 +20,7 @@ var pinIcons = {
 
 function getSecondValue(value) {
     value = parseInt(value);
-    console.log("secondvalue typeof", typeof value);
+    // console.log("secondvalue typeof", typeof value);
     return value === 1 ? "2" : "1";
 }
 
@@ -31,17 +31,17 @@ function getSecondOption(pinTypeId) {
 
 function getThirdValue(value) {
     value = parseInt(value);
-    console.log("third value", typeof value);
+    // console.log("third value", typeof value);
     return value === 3 ? "2" : "3";
 }
 
 function getThirdOption(pinTypeId) {
-    pinTypeId = parseInt(pinTypeId);
+    // pinTypeId = parseInt(pinTypeId);
     return pinTypeId === 3 ? editMap["2"] : editMap["3"];
 }
 
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2
     });
@@ -64,17 +64,18 @@ function initMap() {
         });
 
         console.log("value of pin.pinId", pin.pinId);
-        console.log("typeof pin.pinid", typeof pin.pinId);
-        console.log("typeof pin.pintypeid", typeof pin.pinTypeId);
-        console.log("value of pin.pinTypeId", pin.pinTypeId);
-        console.log("value of getSecondValue", getSecondValue(pin.pinTypeId));
+        // console.log("typeof pin.pinid", typeof pin.pinId);
+        // console.log("typeof pin.pintypeid", typeof pin.pinTypeId);
+        // console.log("value of pin.pinTypeId", pin.pinTypeId);
+        // console.log("value of getSecondValue", getSecondValue(pin.pinTypeId));
         // console.log("value of getSecondOption", getSecondOption(pin.pinTypeId));
-        console.log("value of getThirdValue", getThirdValue(pin.pinTypeId));
+        // console.log("value of getThirdValue", getThirdValue(pin.pinTypeId));
         // console.log("value of getThirdOption", getThirdOption(pin.pinTypeId));
         //console.log("value of pin. ", );
 
         markers[LatLng] = marker;
-        
+        console.log("This is the marker", pin.latitude, pin.longitude, LatLng, markers[LatLng]);
+
         var html = (
             '<div class = "window-content">' +
             '<h1 id="place-name" class="place-name">' + pin.city +
@@ -152,23 +153,24 @@ function initMap() {
 
     function removePin(evt){
         var data = {'id': $(this).data("remove")};
-
+        console.log("This is the data", data);
         $.post('/remove_pin.json', data, removePinFromMap);
     }
 
     function removePinFromMap(results) {
-        console.log(results);
+        console.log("Remove pin results", results);
         
         var lat = parseFloat(results.lat);
-        console.log(lat);
         var lng = parseFloat(results.lng);
-        console.log(lng);
 
         markers[new google.maps.LatLng(lat, lng)].setMap(null);
+        console.log("Removed marker.");
     }
 
     // Make the callback a named function
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+        $("#submit").unbind("click");
 
         $('#submit').click(function(evt){
             evt.preventDefault();
