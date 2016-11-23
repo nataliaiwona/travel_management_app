@@ -17,8 +17,7 @@ def load_users():
         row = row.rstrip()
         id, fname, lname, email, password = row.split(",")
 
-        user = User(id=id,
-                    fname=fname,
+        user = User(fname=fname,
                     lname=lname,
                     email=email,
                     password=bcrypt.hashpw(password, bcrypt.gensalt()))
@@ -62,8 +61,7 @@ def load_locations():
         id, city, state, country, latitude, longitude = row
 
         # TODO Make locations singular
-        locations = Location(id=id,
-                             city=city,
+        locations = Location(city=city,
                              state=state,
                              country=country,
                              latitude=latitude,
@@ -89,8 +87,7 @@ def load_pins():
         id, user_id, pin_type_id, location_id = row
 
         # TODO make pins singular
-        pins = Pin(id=id,
-                   user_id=user_id,
+        pins = Pin(user_id=user_id,
                    pin_type_id=pin_type_id,
                    location_id=location_id
                    )

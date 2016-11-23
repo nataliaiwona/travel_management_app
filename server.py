@@ -131,8 +131,10 @@ def user_homepage():
     new_pin = helper.check_duplicate_pins(user.id, location, pin_type)
 
     result = {"new_pin_id": new_pin.id}
+    print "New Pin", new_pin
+    print "NP ID ***", result
 
-    return jsonify(result) 
+    return jsonify(result)
 
 
 @app.route('/user_pin_info.json')

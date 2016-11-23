@@ -38,6 +38,8 @@ def check_duplicate_pins(user_id, location, pin_type):
         existing_pin.pin_type_id = pin_type
         db.session.commit()
 
+        return existing_pin
+
 def create_or_get_location(city, state, country, lat, lng):
     """Create new location or get existing location from database"""
 
