@@ -1,39 +1,68 @@
 <!doctype html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% block head %}
+  <title>Trippy Base Template</title>
+  {% endblock %}
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/static/user_homepage.css">
-   
-{% block head %}
-  <title>Travel Management Application</title>
-{% endblock %}
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/static/marketing.css">
+
 </head>
 
 <body>
+  <div class="site-wrapper">
 
-  Travel Diary
+    <div class="site-wrapper-inner">
 
-  {% if "user_id" in session %}
-      <a href="/user_homepage">Your Map</a>
-      <a href="/logout">Logout</a>
+      <div class="cover-container">
 
-  {% else %}
-      <a href="/login">Login</a>
-      <a href="/signup">Sign Up!</a>
-  {% endif %}
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h4 class="masthead-brand">Trippy</h4>
+            <nav>
+              <ul class="nav masthead-nav">
+                {% if "user_id" in session %}
+                  <li><a href="/user_homepage">Your Map</a></li>
+                  <li><a href="/logout">Logout</a></li>
 
-  <hr>
+                {% else %}
+                  <li><a href="/login">Login</a></li>
+                  <li><a href="/signup">Sign Up!</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div>
 
+        {% block body %}
+        {% endblock %}
+
+        <div class="mastfoot">
+          <div class="inner">
+            <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<hr>
   <!-- TODO some JS, on page load, wait x seconds and clear that div -->
+  <ul class="flashes">
   {% for flash in get_flashed_messages() %}
-    {{ flash }}
+    <li>{{ flash }}</li>
   {% endfor %}
+  </ul>
 
-  {% block content %}
-      Put your body here.
-  {% endblock %}
-  
 </body>   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
