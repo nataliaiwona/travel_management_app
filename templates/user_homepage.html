@@ -1,13 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_app.html' %}
+
 {% block head %}
-
-<title>Search by City</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="utf-8">
-
+<title>User Homepage</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> 
 {% endblock %}
 
-{% block content %}
+{% block body %}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap">
 </script>
 
@@ -57,7 +55,7 @@ data-target="#myModal">Add a Pin to Your Map</button>
   </div>
 </div>
 
-<div id="map"></div>
+<div id="map" class="col-md-6"></div>
 
 <script>var userId = {{ session["user_id"] }} </script>
 
