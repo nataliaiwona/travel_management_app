@@ -42,7 +42,7 @@ function getThirdOption(pinTypeId) {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 0, lng: 0},
+        center: {lat: 33.997324, lng: -6.894970},
         zoom: 2,
         styles: [
             {
@@ -122,8 +122,8 @@ function initMap() {
 
         var html = (
             '<div class = "window-content">' +
-            '<h1 id="place-name" class="place-name">' + pin.city +
-            '</h1>' +
+            '<h4 id="place-name" class="place-name">' + pin.city +
+            '</h4>' +
             '<div class="window-body">' +
             '<form action="#" method="post">' +
             // Add this at some point.'Notes:<input type="text" name="notes"' + 

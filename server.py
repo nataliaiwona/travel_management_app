@@ -77,16 +77,13 @@ def login_process():
     if not user:
         flash("No such user")
         return redirect("/login")
-    # TODO add to helper.py decoding function
-    if helper.check_pass(user, password):
-        flash("Password matches")
-    else:
+
+    if not helper.check_pass(user, password):
         flash("Incorrect password")
         return redirect("/login")
 
     session["user_id"] = user.id
 
-    flash("Logged in!")
     return redirect("/user_homepage")
 
 
