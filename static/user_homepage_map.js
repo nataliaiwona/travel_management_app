@@ -122,14 +122,13 @@ function initMap() {
 
         var html = (
             '<div class = "window-content">' +
-            '<h4 id="place-name" class="place-name">' + pin.city +
-            '</h4>' +
+            '<h3 id="place-name" class="place-name">' + pin.city +
+            '</h3>' +
             '<div class="window-body">' +
             '<form action="#" method="post">' +
             // Add this at some point.'Notes:<input type="text" name="notes"' + 
             // 'maxlength="500" size="100"/> <br/>' +
-            'Update Your Pin:<br/>' +
-            '<select name="pin_types">' +
+            '<select name="pin_types" class="form-control">' +
             '<option value=' + pin.pinTypeId + '>' +
             editMap[pin.pinTypeId] + '</option>' +
             '<option value=' + getSecondValue(pin.pinTypeId) + '>' +
@@ -139,14 +138,16 @@ function initMap() {
             '</select><br/>' +
             '<input type="hidden" name="pin_id" value=' + pin.pinId + '>' +
             '<input type="hidden" name="city" value=' + pin.city + '>' +
-            '<p><input class="submit-edit" type="submit"></p>' +
-            '</form>' +
-            '</div>' +
-            '</div>' +
+            
+            '<input class="btn btn-primary btn-sm submit-edit" type="submit">' +
             '<button data-remove=' + pin.pinId +
             ' type="button"' +
-            'class="btn btn-default remove" name="remove-pin">' +
-            'Remove Pin</button>'
+            'class="btn btn-danger btn-sm remove" name="remove-pin">' +
+            'Remove Pin</button>' +
+            '</form>' +
+            '</div>' +
+            '</div>'
+            
         );
 
         bindInfoWindow(marker, map, infoWindow, html);

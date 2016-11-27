@@ -70,7 +70,6 @@ html, body {
 
 .btn-sm {
   margin-bottom: 4px;
-  font-weight: bold;
   height: 30px;
 }
 
@@ -101,52 +100,15 @@ html, body {
   color: #515151;
 }
 
-/*.window-content {
-
-
-}*/
-
-
-/*.map_nav_bar {
-  margin-right: 20px;
-  margin-left: 20px;
+.window-content {
+  font-family: 'Sanchez', serif;
 }
 
-.nav_bar_brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff; /* IE8 proofing 
-/*  color: #515151;
-  display: inline-block;
-  text-decoration: none;
-}*/
-
-/*.nav_bar_brand > a:hover,
-.nav_bar_brand > a:focus,
-.nav_bar_links_pull_right > a:hover,
-.nav_bar_links_pull_right > a:focus {
-  background-color: transparent;
-  border-bottom-color: #ff0000;
-  border-bottom-color: rgba(255,255,255,.25);
-  text-decoration: none;
+.form-control {
+  margin-top: 20px;
+  text-align: center;
 }
 
-.nav_bar_links_pull_right {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff; /* IE8 proofing */
-  /*color: #515151;
-  display: inline-block;
-  text-decoration: none;
-  float: right;
-  border-bottom: 2px solid transparent;
-
-}*/
+.place-name {
+  text-align: center;
+}
