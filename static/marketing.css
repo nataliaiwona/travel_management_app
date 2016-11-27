@@ -35,16 +35,21 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  color: #696969;
+  color: white;
   text-align: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Sanchez', serif;
   
 /*  text-shadow: 0 1px 3px rgba(0,0,0,.5);*/
 }
 
 h1 {
-  color: #696969;
+  color: white;
   font-size: 400%;
+}
+
+/*Lead font*/
+.lead {
+  color: #515151;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -57,12 +62,13 @@ h1 {
           box-shadow: inset 0 0 100px rgba(0,0,0,.5);
 }
 .site-wrapper-inner {
-  display: table-cell;
+  margin-top: 220px;
+  display: block;
   vertical-align: top;
 }
 .cover-container {
-  margin-right: auto;
-  margin-left: auto;
+  /*margin-right: o;
+  margin-left: auto;*/
 }
 
 /* Padding for spacing */
@@ -88,10 +94,10 @@ h1 {
 .masthead-nav > li > a {
   padding-right: 0;
   padding-left: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #fff; /* IE8 proofing */
-  color: rgba(105,105,105,1);
+  color: #515151;
   border-bottom: 2px solid transparent;
 }
 .masthead-nav > li > a:hover,
@@ -100,6 +106,26 @@ h1 {
   border-bottom-color: #ff0000;
   border-bottom-color: rgba(255,255,255,.25);
 }
+
+.masthead-brand > a:hover,
+.masthead-brand > a:focus {
+  background-color: transparent;
+  border-bottom-color: #ff0000;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+
+.masthead-brand > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: #515151;
+  display: inline-block;
+  text-decoration: none;
+/*  border-bottom: 2px solid transparent;*/
+}
+  
 
 /*.masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
@@ -171,6 +197,62 @@ h1 {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    width: 100%;
   }
 }
+
+/*Login & Signup Page*/
+.login {
+  position: fixed;
+  padding: 30px;
+  width: 220px;
+  height: 240px;
+  top: 50%;
+  left: 50%; 
+  margin-top: -110px;
+  margin-left: -120px;
+  color: #515151;
+  background-color: white;
+  opacity: .8;
+
+}
+
+.signup {
+  position: fixed;
+  padding: 30px;
+  width: 220px;
+  height: 300px;
+  top: 50%;
+  left: 50%; 
+  margin-top: -110px;
+  margin-left: -120px;
+  color: #515151;
+  background-color: white;
+  opacity: .8;
+
+}
+
+
+.form-ctrl {
+  width: 160px;
+  height: 26px;
+  position: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

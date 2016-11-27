@@ -10,7 +10,8 @@
   {% endblock %}
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
   <link rel="stylesheet" href="/static/marketing.css">
 
 </head>
@@ -24,7 +25,7 @@
 
         <div class="masthead clearfix">
           <div class="inner">
-            <h4 class="masthead-brand">Trippy</h4>
+            <h4 class="masthead-brand"><a href="/">Trippy</a></h4>
             <nav>
               <ul class="nav masthead-nav">
                 {% if "user_id" in session %}
@@ -43,11 +44,11 @@
         {% block body %}
         {% endblock %}
 
-        <div class="mastfoot">
+        <!-- <div class="mastfoot">
           <div class="inner">
             <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
           </div>
-        </div>
+        </div> -->
 
       </div>
 

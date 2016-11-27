@@ -5,41 +5,40 @@
 {% endblock %}
 
 {% block body %}
-
-<div>
-  <h2>Sign Up for an Account</h2>
-  <form action="/signup" method="POST">
+<div class="col-sm-6 col-md-4 col-md-offset-4">
+  <div class="signup">
+    <h2>Sign Up</h2>
+    <form action="/signup" method="POST" class="form-log">
+        
+      <div>
+        <label>
+          <input type="text" name="fname" placeholder="First Name" required class="form-ctrl">
+        </label>
+      </div>
       
-    <div class="form-signup">
-      <label>
-        First Name: <input type="text" name="fname" required class="form-ctrl">
-      </label>
-    </div>
-    
-    <div class="form-signup">
-      <label>
-        Last Name: <input type="text" name="lname" required class="form-ctrl">
-      </label>
-    </div>
-    
-    <div class="form-signup">
-      <label>
-        Email Address: <input type="text" name="email" required class="form-ctrl">
-      </label>
-    </div>
+      <div>
+        <label>
+          <input type="text" name="lname" placeholder="Last Name" required class="form-ctrl">
+        </label>
+      </div>
+      
+      <div>
+        <label>
+          <input type="text" name="email" placeholder="Email Address" required class="form-ctrl">
+        </label>
+      </div>
 
-    <div class="form-signup">
-      <label>
-        Password: <input type="password" name="password" required class="form-ctrl">
-      </label>
-
-    </div>
-    
-    <div class="form-signup">
-      <input type="submit" name="Submit">
-    </div>
-    
-  </form>
+      <div>
+        <label>
+          <input type="password" name="password" placeholder="Password" required class="form-ctrl">
+        </label>
+      </div>
+      
+      <div>
+        <input type="submit" name="Submit" class="btn btn-md btn-primary btn-block">
+      </div>
+      
+    </form>
+  </div>
 </div>
-
 {% endblock %}
