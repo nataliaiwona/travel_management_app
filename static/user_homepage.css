@@ -1,17 +1,29 @@
+
+
+a,
+a:focus,
+a:hover {
+color: #515151;
+}
+
+
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
   height: 100%;
- /* z-index: 999999;*/
+
 }
-/* Optional: Makes the sample page fill the window. */
+
 html, body {
+  padding-top: 77px;
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Sanchez', serif;
+  color: #515151;
 }
 
-.controls {
+/*.controls {
   margin-top: 10px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
@@ -21,16 +33,16 @@ html, body {
   height: 32px;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
+}*/
 
 #pac-input {
   background-color: #fff;
-  font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
   margin-left: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
+  height: 30px;
   width: 300px;
 }
 
@@ -39,7 +51,7 @@ html, body {
 }
 
 .pac-container {
-  font-family: Roboto;
+  font-family: 'Sanchez', serif;
   z-index: 99999;
 }
 
@@ -48,23 +60,93 @@ html, body {
 }
 
 #type-selector label {
-  font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
 }
 
-.map_nav_bar {
-  margin-right: 20px;
+.modal-title {
+  margin-left: 13px;
 }
 
-.nav_bar_link {
+.btn-sm {
+  margin-bottom: 4px;
+  font-weight: bold;
+  height: 30px;
+}
+
+.navbar-fixed-top {
+  border: 0;
+}
+
+#myBtn {
+  margin-top: 5px;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navbar-brand {
   font-size: 24px;
   font-weight: bold;
+  color: #fff; /* IE8 proofing */
   color: #515151;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#navbar {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: #515151;
+}
+
+/*.window-content {
+
+
+}*/
+
+
+/*.map_nav_bar {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.nav_bar_brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing 
+/*  color: #515151;
+  display: inline-block;
+  text-decoration: none;
+}*/
+
+/*.nav_bar_brand > a:hover,
+.nav_bar_brand > a:focus,
+.nav_bar_links_pull_right > a:hover,
+.nav_bar_links_pull_right > a:focus {
+  background-color: transparent;
+  border-bottom-color: #ff0000;
+  border-bottom-color: rgba(255,255,255,.25);
   text-decoration: none;
 }
 
 .nav_bar_links_pull_right {
-  display: inline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  /*color: #515151;
+  display: inline-block;
+  text-decoration: none;
   float: right;
-}
+  border-bottom: 2px solid transparent;
+
+}*/

@@ -16,27 +16,25 @@
 </head>
 
 <body>
-  <div class="map_nav_bar">
-    <a href="/" class="nav_bar_link">Trippy</a>
-    <div class="nav_bar_links_pull_right">
-      <a href="/user_homepage">Your Map</a>
-    <a href="/logout">Logout</a>
-    </div>
-    
-  </div>
-  <hr>
-  
-  {% for flash in get_flashed_messages() %}
-    {{ flash }}
-  {% endfor %}
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap">
   </script>
 
-  <!-- Trigger the modal with a button -->
-  <button id="myBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal"
-  data-target="#myModal">Add a Pin to Your Map</button>
-
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Trippy</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><button id="myBtn" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Add a Pin</button></li>
+          <li><a href="/user_homepage">Your Map</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -46,15 +44,15 @@
         
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Pin: Search for a City</h4>
+          <h4 class="modal-title">Search for City to Add Pin</h4>
         </div>
         
         <div class="modal-body">
-          <input id="pac-input" type="text" placeholder="Enter a location">
-          <!-- <p>Pin already added. Click pin to edit.</p> -->
-          <button id="submit" type="button" class="btn btn-default" 
-            name="submit">Add City</button>
-          
+          <div>
+            <input id="pac-input" type="text" placeholder="Enter a location" required>
+            <button id="submit" type="button" class="btn btn-info btn-sm" 
+            name="submit">Add Pin</button>          
+          </div>
           <div id="type-selector">
             <input type="radio" name="pin_type" id="pin_type_1" value="1"
               checked="checked" required="required">
@@ -66,7 +64,6 @@
             <input type="radio" name="pin_type" id="pin_type_3" value="3">
             <label for="pin_type_3">Never Going Back</label>
           </div>
-        
         </div>
         
         <div class="modal-footer">
@@ -82,6 +79,10 @@
 <div id="map"></div>
 
 <script>var userId = {{ session["user_id"] }} </script>
+
+{% for flash in get_flashed_messages() %}
+  {{ flash }}
+{% endfor %}
 
 </body>   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
