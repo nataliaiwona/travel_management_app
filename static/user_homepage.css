@@ -6,7 +6,7 @@
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
-  height: 80%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -51,4 +51,20 @@ html, body {
   font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
+}
+
+.map_nav_bar {
+  margin-right: 20px;
+}
+
+.nav_bar_link {
+  font-size: 24px;
+  font-weight: bold;
+  color: #515151;
+  text-decoration: none;
+}
+
+.nav_bar_links_pull_right {
+  display: inline;
+  float: right;
 }

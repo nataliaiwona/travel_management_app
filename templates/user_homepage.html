@@ -1,64 +1,92 @@
-{% extends 'base_app.html' %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block head %}
-<title>User Homepage</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> 
-{% endblock %}
+  <title>User Homepage</title>
 
-{% block body %}
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap">
-</script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+<!--   <link rel="stylesheet" href="/static/marketing.css"> -->
+  <link rel="stylesheet" href="/static/user_homepage.css">
 
-<!-- Trigger the modal with a button -->
-<button id="myBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal"
-data-target="#myModal">Add a Pin to Your Map</button>
+</head>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<body>
+  <div class="map_nav_bar">
+    <a href="/" class="nav_bar_link">Trippy</a>
+    <div class="nav_bar_links_pull_right">
+      <a href="/user_homepage">Your Map</a>
+    <a href="/logout">Logout</a>
+    </div>
+    
+  </div>
+  <hr>
+  
+  {% for flash in get_flashed_messages() %}
+    {{ flash }}
+  {% endfor %}
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Pin: Search for a City</h4>
-      </div>
-      
-      <div class="modal-body">
-        <input id="pac-input" type="text" placeholder="Enter a location">
-        <!-- <p>Pin already added. Click pin to edit.</p> -->
-        <button id="submit" type="button" class="btn btn-default" 
-          name="submit">Add City</button>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places&callback=initMap&libraries=places&callback=initMap">
+  </script>
+
+  <!-- Trigger the modal with a button -->
+  <button id="myBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+  data-target="#myModal">Add a Pin to Your Map</button>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
         
-        <div id="type-selector">
-          <input type="radio" name="pin_type" id="pin_type_1" value="1"
-            checked="checked" required="required">
-          <label for="pin_type_1">Wish List</label>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Pin: Search for a City</h4>
+        </div>
+        
+        <div class="modal-body">
+          <input id="pac-input" type="text" placeholder="Enter a location">
+          <!-- <p>Pin already added. Click pin to edit.</p> -->
+          <button id="submit" type="button" class="btn btn-default" 
+            name="submit">Add City</button>
+          
+          <div id="type-selector">
+            <input type="radio" name="pin_type" id="pin_type_1" value="1"
+              checked="checked" required="required">
+            <label for="pin_type_1">Wish List</label>
 
-          <input type="radio" name="pin_type" id="pin_type_2" value="2">
-          <label for="pin_type_2">Going Back!</label>
+            <input type="radio" name="pin_type" id="pin_type_2" value="2">
+            <label for="pin_type_2">Going Back!</label>
 
-          <input type="radio" name="pin_type" id="pin_type_3" value="3">
-          <label for="pin_type_3">Never Going Back</label>
+            <input type="radio" name="pin_type" id="pin_type_3" value="3">
+            <label for="pin_type_3">Never Going Back</label>
+          </div>
+        
+        </div>
+        
+        <div class="modal-footer">
+          <button id="see_map" type="button" class="btn btn-default" name="see_map"
+            data-dismiss="modal">See Your Map</button>
         </div>
       
       </div>
-      
-      <div class="modal-footer">
-        <button id="see_map" type="button" class="btn btn-default" name="see_map"
-          data-dismiss="modal">See Your Map</button>
-      </div>
-    
+
     </div>
-
   </div>
-</div>
 
-<div id="map" class="col-md-6"></div>
+<div id="map"></div>
 
 <script>var userId = {{ session["user_id"] }} </script>
 
-{% endblock %}
+</body>   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/static/user_homepage_map.js"></script>
+</html>
 
 
