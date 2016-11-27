@@ -66,10 +66,10 @@ h1 {
   display: block;
   vertical-align: top;
 }
-.cover-container {
-  /*margin-right: o;
-  margin-left: auto;*/
-}
+/*.cover-container {*/
+/*  margin-right: o;*/
+/*  margin-left: auto;
+}*/
 
 /* Padding for spacing */
 .inner {
@@ -96,7 +96,7 @@ h1 {
   padding-left: 0;
   font-size: 18px;
   font-weight: bold;
-  color: #fff; /* IE8 proofing */
+/*  color: #fff;  IE8 proofing */
   color: #515151;
   border-bottom: 2px solid transparent;
 }
@@ -160,11 +160,11 @@ h1 {
 /*
  * Footer
  */
-
+/*
 .mastfoot {
-  color: #999; /* IE8 proofing */
+  color: #999;  IE8 proofing 
   color: rgba(255,255,255,.5);
-}
+}*/
 
 
 /*
@@ -177,17 +177,17 @@ h1 {
     position: fixed;
     top: 0;
   }
-  .mastfoot {
+/*  .mastfoot {
     position: fixed;
     bottom: 0;
-  }
+  }*/
   /* Start the vertical centering */
   .site-wrapper-inner {
     vertical-align: middle;
   }
   /* Handle the widths */
   .masthead,
-  .mastfoot,
+/*  .mastfoot,*/
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
   }
@@ -195,7 +195,7 @@ h1 {
 
 @media (min-width: 992px) {
   .masthead,
-  .mastfoot,
+/*  .mastfoot,*/
   .cover-container {
     width: 100%;
   }
