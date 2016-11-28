@@ -45,11 +45,11 @@ def guest_login_process():
     user = User.query.filter_by(email=email).first()
 
     if not user:
-        flash("No such user")
+        # flash("No such user")
         return redirect("/guest_login")
 
     if not helper.check_pass(user, password):
-        flash("Incorrect password")
+        # flash("Incorrect password")
         return redirect("/guest_login")
 
     session["user_id"] = user.id
@@ -136,8 +136,6 @@ def show_add_pins():
 def user_homepage():
     """Show logged-in user's map and add pins to map."""
 
-    print "User Homepage"
-
     user_id = session.get("user_id")
 
     if user_id:
@@ -157,8 +155,6 @@ def user_homepage():
     new_pin = helper.check_duplicate_pins(user.id, location, pin_type)
 
     result = {"new_pin_id": new_pin.id}
-    print "New Pin", new_pin
-    print "NP ID ***", result
 
     return jsonify(result)
 

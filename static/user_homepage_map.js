@@ -18,10 +18,6 @@ var pinIcons = {
     3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
 };
 
-
-
-
-
 function getSecondValue(value) {
     value = parseInt(value);
     // console.log("secondvalue typeof", typeof value);
@@ -111,18 +107,7 @@ function initMap() {
             icon: pinIcons[pin.pinTypeId]
         });
 
-        console.log("value of pin.pinId", pin.pinId);
-        // console.log("typeof pin.pinid", typeof pin.pinId);
-        // console.log("typeof pin.pintypeid", typeof pin.pinTypeId);
-        // console.log("value of pin.pinTypeId", pin.pinTypeId);
-        // console.log("value of getSecondValue", getSecondValue(pin.pinTypeId));
-        // console.log("value of getSecondOption", getSecondOption(pin.pinTypeId));
-        // console.log("value of getThirdValue", getThirdValue(pin.pinTypeId));
-        // console.log("value of getThirdOption", getThirdOption(pin.pinTypeId));
-        //console.log("value of pin. ", );
-
         markers[LatLng] = marker;
-        console.log("This is the marker", pin.latitude, pin.longitude, LatLng, markers[LatLng]);
 
         var html = (
             '<div class = "window-content">' +
@@ -143,7 +128,6 @@ function initMap() {
             '</select><br/>' +
             '<input type="hidden" name="pin_id" value=' + pin.pinId + '>' +
             '<input type="hidden" name="city" value=' + pin.city + '>' +
-            
             '<input class="btn btn-primary btn-sm submit-edit" type="submit">' +
             '<button data-remove=' + pin.pinId +
             ' type="button"' +
@@ -181,14 +165,10 @@ function initMap() {
                       'editPinCity': form[2]["value"]
                     };
 
-        console.log("These are the params", params);
-
         $.post('/edit_pin.json', params, refreshMap);
     }
 
     function refreshMap(results){
-        console.log("This is refreshMap result", results);
-
         var pin = {
             "latitude": parseFloat(results.lat),
             "longitude": parseFloat(results.lng),
@@ -203,18 +183,14 @@ function initMap() {
 
     function removePin(evt){
         var data = {'id': $(this).data("remove")};
-        console.log("This is the data", data);
         $.post('/remove_pin.json', data, removePinFromMap);
     }
 
     function removePinFromMap(results) {
-        console.log("Remove pin results", results);
-        
         var lat = parseFloat(results.lat);
         var lng = parseFloat(results.lng);
 
         markers[new google.maps.LatLng(lat, lng)].setMap(null);
-        console.log("Removed marker.");
     }
 
     // Make the callback a named function
