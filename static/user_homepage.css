@@ -112,3 +112,59 @@ html, body {
 .place-name {
   text-align: center;
 }
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-dismissable, .alert-dismissible {
+  padding-right: 55px;
+}
+
+.alert-trippy {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+  line-height: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

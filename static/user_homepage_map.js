@@ -18,6 +18,10 @@ var pinIcons = {
     3: 'http://maps.google.com/mapfiles/ms/micons/red.png'
 };
 
+
+
+
+
 function getSecondValue(value) {
     value = parseInt(value);
     // console.log("secondvalue typeof", typeof value);
@@ -221,6 +225,8 @@ function initMap() {
         $('#submit').click(function(evt){
             evt.preventDefault();
             $("#pac-input").val("");
+            $(".alert-dismissable").removeAttr("style");
+            $(".alert-dismissable").removeClass("hidden").delay(3000).fadeOut();
 
             var place = autocomplete.getPlace();
             var pinType = $("input[name=pin_type]:checked").val();
