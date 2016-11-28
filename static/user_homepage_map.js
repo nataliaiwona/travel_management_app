@@ -132,8 +132,8 @@ function initMap() {
             '<form action="#" method="post">' +
             // Add this at some point.'Notes:<input type="text" name="notes"' + 
             // 'maxlength="500" size="100"/> <br/>' +
+            '<h5 id="edit-pin">EDIT PIN</h5>' +
             '<select name="pin_types" class="form-control">' +
-            
             '<option value=' + pin.pinTypeId + '>' +
             editMap[pin.pinTypeId] + '</option>' +
             '<option value=' + getSecondValue(pin.pinTypeId) + '>' +

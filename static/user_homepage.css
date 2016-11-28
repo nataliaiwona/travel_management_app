@@ -102,16 +102,27 @@ html, body {
 
 .window-content {
   font-family: 'Sanchez', serif;
+  margin-left: 20px;
 }
 
 .form-control {
-  margin-top: 20px;
-  text-align: center;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .place-name {
-  text-align: center;
+  text-align: left;
+  margin-bottom: 10px;
 }
+
+.btn-danger {
+  margin-left: 5px;
+}
+
+#edit-pin {
+  margin-top: 25px;
+}
+
 
 .alert-success {
   color: #3c763d;
