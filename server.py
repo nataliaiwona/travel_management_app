@@ -28,6 +28,35 @@ def index():
     return render_template("landing_page.html")
 
 
+@app.route('/guest_login', methods=['GET'])
+def guest_login_form():
+    """Allow users to access and interact with app without logging in."""
+
+    return render_template("guest_login.html")
+
+
+@app.route('/guest_login', methods=['POST'])
+def guest_login_process():
+    """Process guest login."""
+
+    email = "guest@guest.com"
+    password = "password"
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        flash("No such user")
+        return redirect("/guest_login")
+
+    if not helper.check_pass(user, password):
+        flash("Incorrect password")
+        return redirect("/guest_login")
+
+    session["user_id"] = user.id
+
+    return redirect("/user_homepage")
+
+
 @app.route('/signup', methods=['GET'])
 def signup_form():
     """Show form for user signup."""
