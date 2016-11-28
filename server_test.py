@@ -4,52 +4,6 @@ from model import connect_to_db, db, User, Location, Pin
 import helper
 
 
-class FlaskTestsDatabase(TestCase):
-    """Testing database."""
-
-    def setUp(self):
-        """Define instructions that will be executed before each test method."""
-
-        # Get the Flask test client
-        app.config['SECRET_KEY'] = 'MEMORY'
-        app.config['TESTING'] = True
-        self.client = app.test_client()
-
-        # Connect to test database
-    #     connect_to_db(app, "postgresql:///travels")
-
-    #     # Create tables and add sample data
-    #     db.create_all()
-    #     example_data()
-
-    # def tearDown(self):
-    #     db.session.close()
-    #     db.drop_all()
-
-#     def test_check_login(self):
-
-#     def test_check_email(self):
-    def test_signup_post_form(self):
-        result = self.client.post('/signup',
-                                  data={"fname": "Test", "lname": "Test",
-                                        "email": "ok@ok.com", "password": "hi"},
-                                  follow_redirects=True)
-        self.assertIn('You are now logged in. Bon Voyage!', result.data)
-
-    # def test_create_or_get_known_location(self):
-    #     """ """
-
-    #     result = create_or_get_location("San Francisco", "California", "United States", "37.773972", "-122.431297") 
-
-    #     assert result.id = "3"
-
-    # def test_create_or_get_location(self):
-    #     """ """
-        # query location of what you just added and test it
-
-
-
-
 class AppIntegrationTestCase(TestCase):
 
     def setUp(self):
@@ -82,6 +36,49 @@ class AppIntegrationTestCase(TestCase):
     #     result = self.client.get('/user_homepage')
     #     self.assertEqual(result.status_code, 200)
     #     self.assertIn("<title>Search by City</title>", result.data)
+
+# class FlaskTestsDatabase(TestCase):
+#     """Testing database."""
+
+#     def setUp(self):
+#         """Define instructions that will be executed before each test method."""
+
+#         # Get the Flask test client
+#         app.config['SECRET_KEY'] = 'MEMORY'
+#         app.config['TESTING'] = True
+#         self.client = app.test_client()
+
+        # Connect to test database
+    #     connect_to_db(app, "postgresql:///travels")
+
+    #     # Create tables and add sample data
+    #     db.create_all()
+    #     example_data()
+
+    # def tearDown(self):
+    #     db.session.close()
+    #     db.drop_all()
+
+#     def test_check_login(self):
+
+#     def test_check_email(self):
+    # def test_signup_post_form(self):
+    #     result = self.client.post('/signup',
+    #                               data={"fname": "Dale", "lname": "Cooper",
+    #                                     "email": "dalecooper@fbi.com", "password": "damngoodcoffee"},
+    #                               follow_redirects=True)
+    #     self.assertIn('TKTK', result.data)
+
+    # def test_create_or_get_known_location(self):
+    #     """ """
+
+    #     result = create_or_get_location("Snoqualmie", "Washington", "United States", "47.5287132", "-121.8253906")
+
+    #     assert result.id = "1"
+
+    # def test_create_or_get_location(self):
+    #     """ """
+        # query location of what you just added and test it
 
 
 

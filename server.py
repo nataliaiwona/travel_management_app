@@ -82,8 +82,8 @@ def signup_process():
 
     session["user_id"] = new_user.id
 
-    flash("Thanks for signing up, {}! \
-          You are now logged in. Bon Voyage!".format(fname))
+    # flash("Thanks for signing up, {}! \
+    #       You are now logged in. Bon Voyage!".format(fname))
     return redirect("/user_homepage")
 
 
@@ -104,11 +104,11 @@ def login_process():
     user = User.query.filter_by(email=email).first()
 
     if not user:
-        flash("No such user")
+        # flash("No such user")
         return redirect("/login")
 
     if not helper.check_pass(user, password):
-        flash("Incorrect password")
+        # flash("Incorrect password")
         return redirect("/login")
 
     session["user_id"] = user.id
@@ -121,7 +121,7 @@ def logout():
     """Log out."""
 
     del session["user_id"]
-    flash("You are now logged out.")
+    # flash("You are now logged out.")
     return redirect("/")
 
 
@@ -141,7 +141,7 @@ def user_homepage():
     if user_id:
         user = User.query.get(user_id)
     else:
-        flash("Please log in to add pins to your map.")
+        # flash("Please log in to add pins to your map.")
         return redirect("/login")
 
     pin_type = request.form.get("pinTypeId")
