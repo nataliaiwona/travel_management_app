@@ -118,7 +118,7 @@ function initMap() {
             // Add this at some point.'Notes:<input type="text" name="notes"' + 
             // 'maxlength="500" size="100"/> <br/>' +
             '<h5 id="edit-pin">EDIT PIN</h5>' +
-            '<select name="pin_types" class="form-control">' +
+            '<select name="pin_types" class="form-control selectpicker">' +
             '<option value=' + pin.pinTypeId + '>' +
             editMap[pin.pinTypeId] + '</option>' +
             '<option value=' + getSecondValue(pin.pinTypeId) + '>' +
@@ -148,6 +148,7 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function () {
             infoWindow.close();
             infoWindow.setContent(html);
+
             infoWindow.open(map, marker);
 
             $(".submit-edit").on('click', editPin);
@@ -248,4 +249,7 @@ function initMap() {
     });   
 }
 
-
+$(document).ready(function() {
+    $('select').addClass('selectpicker');
+    console.log('here');
+});
