@@ -21,7 +21,7 @@ __Frontend:__ HTML5, Javascript💖, jQuery, Bootstrap <br/>
 __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy, bcrypt <br/>
 __APIs:__ Google Maps, Google Places <br/>
 
-## <a name="features"></a>Features 📽
+## <a name="features"></a>Features 
 
 Search for city to add pin to map (green: wish list, blue: want to go back, red: never going back). Edit and remove pin. 
 User account registration not required.
@@ -34,9 +34,9 @@ Register or login to add a pin.
 ![Add Pin](/static/assets/autocomplete.png)
 ![City Added](/static/assets/cityadded.png)
 <br/><br/><br/>
-Add and pins from your account.
+Add pins to your map.
   
-![Edit Pin](/static/img/_readme-img/editpin.png)
+![Edit Pin](/static/assets/editpin.png)
 <br/><br/><br/>
 Edit and remove pins from your map.
 
