@@ -24,7 +24,7 @@ __APIs:__ Google Maps, Google Places <br/>
 ## <a name="features"></a>Features 
 
 Search for city to add pin to map (green: wish list, blue: want to go back, red: never going back). Edit and remove pin. 
-User account registration not required.
+User account registration not required once deployed.
 <br/><br/><br/>
 
 Register or login to add a pin.
