@@ -203,7 +203,7 @@ function initMap() {
             evt.preventDefault();
             $("#pac-input").val("");
             $(".alert-dismissable").removeAttr("style");
-            $(".alert-dismissable").removeClass("hidden").delay(3000).fadeOut();
+            $(".alert-dismissable").removeClass("hidden").delay(2000).fadeOut();
 
             var place = autocomplete.getPlace();
             var pinType = $("input[name=pin_type]:checked").val();
