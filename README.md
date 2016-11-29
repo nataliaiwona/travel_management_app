@@ -25,21 +25,21 @@ __APIs:__ Google Maps, Google Places <br/>
 
 Search for city to add pin to map (green: wish list, blue: want to go back, red: never going back). Edit and remove pin. 
 User account registration not required.
-  
+<br/><br/><br/>
+
+Register or login to add a pin.
 ![Logged out](/static/assets/signup.png)
 ![Login](/static/assets/login.png)
 <br/><br/><br/>
-Register or login to add a pin.
-  
+
+Add pins to your map.
 ![Add Pin](/static/assets/autocomplete.png)
 ![City Added](/static/assets/cityadded.png)
 <br/><br/><br/>
-Add pins to your map.
-  
+
+Edit and remove pins from your map.
 ![Edit Pin](/static/assets/editpin.png)
 <br/><br/><br/>
-Edit and remove pins from your map.
-
 
 ####Requirements:
 
