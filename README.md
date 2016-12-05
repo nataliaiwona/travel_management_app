@@ -28,17 +28,16 @@ User account registration not required once deployed.
 <br/><br/><br/>
 
 Register or login to add a pin.
-![Logged out](/static/assets/signup.png)
-![Login](/static/assets/login.png)
+![Signing Up](/static/assets/signupdale.gif)
+![Logging In](/static/assets/logindale.gif)
 <br/><br/><br/>
 
 Add pins to your map.
-![Add Pin](/static/assets/autocomplete.png)
-![City Added](/static/assets/cityadded.png)
+![Add Pin](/static/assets/addpins.gif)
 <br/><br/><br/>
 
 Edit and remove pins from your map.
-![Edit Pin](/static/assets/editpin.png)
+![Edit or Remove Pin](/static/assets/editremove.gif)
 <br/><br/><br/>
 
 ####Requirements:
