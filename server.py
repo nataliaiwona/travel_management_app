@@ -12,6 +12,7 @@ import helper
 app = Flask(__name__)
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "MEMORY"
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
 # Pulling value for key from shell environment
 maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
@@ -217,12 +218,14 @@ def remove_pin():
 
 
 if __name__ == "__main__":
-    # Set debug=True here, since it has to be True at the point
-    # of invoking the DebugToolbarExtension
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
 
-    connect_to_db(app)
+    db.create_all(app=app)
+    
+    DEBUG = "NO_DEBUG" not in os.environ
+    PORT = int(os.environ.get("PORT", 5000))
+
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
-
-    app.run(debug=True, host="0.0.0.0")
+    # DebugToolbarExtension(app)
