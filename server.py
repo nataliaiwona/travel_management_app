@@ -10,11 +10,11 @@ import bcrypt
 import helper
 
 app = Flask(__name__)
-# Required to use Flask sessions and the debug toolbar
 app.secret_key = "MEMORY"
 app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
-# Pulling value for key from shell environment
+app.config['MAPS_KEY'] = os.environ.get("GOOGLE_MAPS_API_KEY", "abcdefg")
 maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
+
 
 # Raises an error for when you use an undefined variable in Jinja2.
 app.jinja_env.undefined = StrictUndefined
