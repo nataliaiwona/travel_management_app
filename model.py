@@ -93,7 +93,7 @@ class Pin(db.Model):
                         self.location_id)
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri=None):
     """Connect the database to our Flask app."""
 
     # Configure to use PostgreSQL database
