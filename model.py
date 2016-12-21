@@ -93,11 +93,16 @@ class Pin(db.Model):
                         self.location_id)
 
 
-def connect_to_db(app, db_uri=None):
+def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use PostgreSQL database
-    app.config['SQLALCHEMY_DB_URI'] = db_uri or 'postgresql:///travels'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///travels'
+# def connect_to_db(app, db_uri=None):
+#     """Connect the database to our Flask app."""
+
+#     # Configure to use PostgreSQL database
+#     app.config['SQLALCHEMY_DB_URI'] = db_uri or 'postgresql:///travels'
 
     # app.config['SQLAlCHEMY_ECHO'] = True
     db.app = app

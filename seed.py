@@ -22,10 +22,8 @@ def load_users():
                     email=email,
                     password=bcrypt.hashpw(password, bcrypt.gensalt()))
 
-        # Add to session so it will be stored!
         db.session.add(user)
 
-    # Commit above work
     db.session.commit()
 
  
@@ -60,7 +58,6 @@ def load_locations():
 
         id, city, state, country, latitude, longitude = row
 
-        # TODO Make locations singular
         locations = Location(city=city,
                              state=state,
                              country=country,
@@ -86,7 +83,6 @@ def load_pins():
 
         id, user_id, pin_type_id, location_id = row
 
-        # TODO make pins singular
         pins = Pin(user_id=user_id,
                    pin_type_id=pin_type_id,
                    location_id=location_id

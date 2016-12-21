@@ -1,25 +1,13 @@
-/*
- * Globals
- */
+/* 
+* Links 
+*/
 
-/* Links */
 a,
 a:focus,
 a:hover {
   color: #fff;
 }
 
-/* Custom default button */
-/*.btn-default,
-.btn-default:hover,
-.btn-default:focus {
-  color: #999999;
-  text-shadow: none;  Prevent inheritance from `body` 
-  background-color: #ffff99;
-  border: 1px solid #fff;
-}
-
-*/
 /*
  * Base structure
  */
@@ -28,8 +16,8 @@ html,
 body {
   width: 100%;
   height: 100%;
-/*  overflow: hidden;*/
 }
+
 body {
   background-image: url(/static/uploads/pins1.jpg);
   background-size: cover;
@@ -38,8 +26,6 @@ body {
   color: #fff;
   text-align: center;
   font-family: 'Sanchez', serif;
-  
-/*  text-shadow: 0 1px 3px rgba(0,0,0,.5);*/
 }
 
 h1 {
@@ -47,12 +33,18 @@ h1 {
   font-size: 400%;
 }
 
-/*Lead font*/
+/*
+* Lead font
+*/
+
 .lead {
   color: #0E1717;
 }
 
-/* Extra markup and styles for table-esque vertical and horizontal centering */
+/* 
+* Extra markup and styles for table-esque vertical and horizontal centering 
+*/
+
 .site-wrapper {
   display: table;
   width: 100%;
@@ -66,20 +58,15 @@ h1 {
   display: block;
   vertical-align: top;
 }
-/*.cover-container {*/
-/*  margin-right: o;*/
-/*  margin-left: auto;
-}*/
 
-/* Padding for spacing */
 .inner {
   padding: 30px;
 }
 
-
 /*
  * Header
  */
+
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -88,18 +75,20 @@ h1 {
 .masthead-nav > li {
   display: inline-block;
 }
+
 .masthead-nav > li + li {
   margin-left: 20px;
 }
+
 .masthead-nav > li > a {
   padding-right: 0;
   padding-left: 0;
   font-size: 18px;
   font-weight: bold;
-/*  color: #fff;  IE8 proofing */
   color: #0E1717;
   border-bottom: 2px solid transparent;
 }
+
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
   background-color: transparent;
@@ -123,17 +112,8 @@ h1 {
   color: #0E1717;
   display: inline-block;
   text-decoration: none;
-/*  border-bottom: 2px solid transparent;*/
 }
   
-
-/*.masthead-nav > .active > a,
-.masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
-  color: #fff;
-  border-bottom-color: #fff;
-}
-*/
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
@@ -156,52 +136,45 @@ h1 {
   font-weight: bold;
 }
 
-
-/*
- * Footer
- */
-/*
-.mastfoot {
-  color: #999;  IE8 proofing 
-  color: rgba(255,255,255,.5);
-}*/
-
-
 /*
  * Affix and center
  */
 
 @media (min-width: 768px) {
-  /* Pull out the header and footer */
   .masthead {
     position: fixed;
     top: 0;
   }
-/*  .mastfoot {
-    position: fixed;
-    bottom: 0;
-  }*/
-  /* Start the vertical centering */
+
+  /* 
+  * Start the vertical centering 
+  */
+
   .site-wrapper-inner {
     vertical-align: middle;
   }
-  /* Handle the widths */
+
+  /* 
+  * Handle the widths 
+  */
+
   .masthead,
-/*  .mastfoot,*/
   .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+    width: 100%; 
   }
 }
 
 @media (min-width: 992px) {
   .masthead,
-/*  .mastfoot,*/
   .cover-container {
     width: 100%;
   }
 }
 
-/*Login & Signup Page*/
+/*
+* Login & Signup Page
+*/
+
 .login {
   position: fixed;
   padding: 30px;
@@ -214,7 +187,6 @@ h1 {
   color: #515151;
   background-color: white;
   opacity: .8;
-
 }
 
 .signup {
@@ -232,27 +204,8 @@ h1 {
 
 }
 
-
 .form-ctrl {
   width: 160px;
   height: 26px;
   position: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

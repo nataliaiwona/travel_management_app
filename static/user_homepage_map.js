@@ -20,7 +20,6 @@ var pinIcons = {
 
 function getSecondValue(value) {
     value = parseInt(value);
-    // console.log("secondvalue typeof", typeof value);
     return value === 1 ? "2" : "1";
 }
 
@@ -31,12 +30,10 @@ function getSecondOption(pinTypeId) {
 
 function getThirdValue(value) {
     value = parseInt(value);
-    // console.log("third value", typeof value);
     return value === 3 ? "2" : "3";
 }
 
 function getThirdOption(pinTypeId) {
-    // pinTypeId = parseInt(pinTypeId);
     return pinTypeId === 3 ? editMap["2"] : editMap["3"];
 }
 
@@ -135,8 +132,7 @@ function initMap() {
             'Remove Pin</button>' +
             '</form>' +
             '</div>' +
-            '</div>'
-            
+            '</div>'  
         );
 
         bindInfoWindow(marker, map, infoWindow, html);
@@ -148,7 +144,6 @@ function initMap() {
         google.maps.event.addListener(marker, 'click', function () {
             infoWindow.close();
             infoWindow.setContent(html);
-
             infoWindow.open(map, marker);
 
             $(".submit-edit").on('click', editPin);
@@ -157,7 +152,6 @@ function initMap() {
     }
 
     function editPin(evt){
-        // Add some Jasmine error handling: check that names match
         evt.preventDefault();
 
         var form = $('form').serializeArray();
@@ -194,7 +188,6 @@ function initMap() {
         markers[new google.maps.LatLng(lat, lng)].setMap(null);
     }
 
-    // Make the callback a named function
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
         $("#submit").unbind("click");

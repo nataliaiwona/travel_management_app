@@ -83,7 +83,7 @@
 <script>var userId = {{ session["user_id"] }} </script>
 
 {% for flash in get_flashed_messages() %}
-  {{ flash }}
+  "{{ flash }}"
 {% endfor %}
 
 

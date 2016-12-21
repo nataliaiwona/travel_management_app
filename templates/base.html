@@ -61,7 +61,7 @@
   <!-- TODO some JS, on page load, wait x seconds and clear that div -->
   <ul class="flashes">
   {% for flash in get_flashed_messages() %}
-    <li>{{ flash }}</li>
+    <li>"{{ flash }}"</li>
   {% endfor %}
   </ul>
   

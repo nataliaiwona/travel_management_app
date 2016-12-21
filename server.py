@@ -11,8 +11,9 @@ import helper
 
 app = Flask(__name__)
 app.secret_key = "MEMORY"
-app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
-app.config['MAPS_KEY'] = os.environ.get("GOOGLE_MAPS_API_KEY", "abcdefg")
+# For Heroku
+# app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
+# app.config['MAPS_KEY'] = os.environ.get("GOOGLE_MAPS_API_KEY", "abcdefg")
 maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
 
@@ -218,14 +219,23 @@ def remove_pin():
 
 
 if __name__ == "__main__":
-    connect_to_db(app, os.environ.get("DATABASE_URL"))
+    # Set debug=True here, since it has to be True at the point
+    # of invoking the DebugToolbarExtension
 
-    db.create_all(app=app)
-    
-    DEBUG = "NO_DEBUG" not in os.environ
-    PORT = int(os.environ.get("PORT", 5000))
-
-    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+    connect_to_db(app)
 
     # Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
+
+    app.run(debug=True, host="0.0.0.0")
+
+
+# if __name__ == "__main__":
+#     connect_to_db(app, os.environ.get("DATABASE_URL"))
+
+#     db.create_all(app=app)
+    
+#     DEBUG = "NO_DEBUG" not in os.environ
+#     PORT = int(os.environ.get("PORT", 5000))
+
+#     app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
