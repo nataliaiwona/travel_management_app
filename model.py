@@ -42,7 +42,7 @@ class PinType(db.Model):
 
 
 class Location(db.Model):
-    """User of Trippy website."""
+    """Location where pin is dropped."""
 
     __tablename__ = "locations"
 
