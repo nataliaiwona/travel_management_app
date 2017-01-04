@@ -3,13 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-"""Models and database functions for Travel Diary project."""
+"""Models and database functions for Trippy."""
 
 db = SQLAlchemy()
 
 
 class User(db.Model):
-    """User of travel diary website."""
+    """User of Trippy website."""
 
     __tablename__ = "users"
 
@@ -27,7 +27,7 @@ class User(db.Model):
 
 
 class PinType(db.Model):
-    """Pin type associated with travel diary website."""
+    """Pin type associated with Trippy."""
 
     __tablename__ = "pin_types"
 
@@ -42,7 +42,7 @@ class PinType(db.Model):
 
 
 class Location(db.Model):
-    """User of travel diary website."""
+    """User of Trippy website."""
 
     __tablename__ = "locations"
 
@@ -63,7 +63,7 @@ class Location(db.Model):
 
 
 class Pin(db.Model):
-    """Pins users have pinned to travel diary website."""
+    """Pins users have pinned to Trippy map."""
 
     __tablename__ = "pins"
 
