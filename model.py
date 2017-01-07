@@ -63,7 +63,7 @@ class Location(db.Model):
 
 
 class Pin(db.Model):
-    """Pins users have pinned to Trippy map."""
+    """Pins users have pinned to map."""
 
     __tablename__ = "pins"
 
