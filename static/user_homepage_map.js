@@ -244,5 +244,4 @@ function initMap() {
 
 $(document).ready(function() {
     $('select').addClass('selectpicker');
-    console.log('here');
 });

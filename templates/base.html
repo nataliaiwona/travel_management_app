@@ -9,6 +9,16 @@
   <title>Trippy Base Template</title>
   {% endblock %}
 
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
@@ -59,11 +69,11 @@
 
 <hr>
   <!-- TODO some JS, on page load, wait x seconds and clear that div -->
-  <ul class="flashes">
+  <!-- <ul class="flashes">
   {% for flash in get_flashed_messages() %}
     <li>"{{ flash }}"</li>
   {% endfor %}
-  </ul>
+  </ul> -->
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
