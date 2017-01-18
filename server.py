@@ -220,24 +220,24 @@ def remove_pin():
     return jsonify(pin_data)
 
 
-if __name__ == "__main__":
-    # Set debug=True here, since it has to be True at the point
-    # of invoking the DebugToolbarExtension
-
-    connect_to_db(app)
-
-    # Use the DebugToolbar
-    DebugToolbarExtension(app)
-
-    app.run(debug=True, host="0.0.0.0")
-
-
 # if __name__ == "__main__":
-#     connect_to_db(app, os.environ.get("DATABASE_URL"))
+#     # Set debug=True here, since it has to be True at the point
+#     # of invoking the DebugToolbarExtension
 
-#     db.create_all(app=app)
+#     connect_to_db(app)
+
+#     # Use the DebugToolbar
+#     DebugToolbarExtension(app)
+
+#     app.run(debug=True, host="0.0.0.0")
+
+
+if __name__ == "__main__":
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
+
+    db.create_all(app=app)
     
-#     DEBUG = "NO_DEBUG" not in os.environ
-#     PORT = int(os.environ.get("PORT", 5000))
+    DEBUG = "NO_DEBUG" not in os.environ
+    PORT = int(os.environ.get("PORT", 5000))
 
-#     app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
