@@ -1,5 +1,7 @@
 
 
+🚨[Now Deployed on Heroku](http://trippyproject.herokuapp.com/)🚨
+
 Trippy is a travel management application that allows users to keep track of their past and future travel destinations. This app allows users to customize a map of the world with pins that represent cities. A user can add, edit or remove a pin, and can designate what type of pin to use for a city. Color-coded pins help the user distinguish between a city a user wants to visit, has visited and wants to go back, or has visited but never wants to return. Trippy --the app that gives globetrotters a high-level view of their travels.🌍
 
 
