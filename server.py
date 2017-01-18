@@ -226,6 +226,7 @@ def error():
 
 if __name__ == "__main__":
     connect_to_db(app, os.environ.get("DATABASE_URL"))
+    # connect_to_db(app, os.environ.get("HEROKU_POSTGRESQL_GREEN_URL"))
 
     db.create_all(app=app)
 
