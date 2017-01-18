@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
 app.config['MAPS_KEY'] = os.environ.get("MAPS_SECRET_KEY", "abcdef")
 
-maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
+maps_key = os.environ["MAPS_SECRET_KEY"]
 
 
 # Raises an error for when you use an undefined variable in Jinja2.

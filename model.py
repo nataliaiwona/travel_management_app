@@ -103,27 +103,6 @@ def connect_to_db(app, db_uri=None):
     print "Connected to DB."
 
 
-def example_data():
-    """Sample user data."""
-
-    user1 = User(fname="Dale", lname="Cooper", email="dale.cooper@fbi.com",
-                 password="damngoodcoffee")
-
-    db.session.add(user1)
-    db.session.commit()
-    user_id = db.session.query(User.id).filter(User.email == "dale.cooper@fbi.com").first()
-
-    location1 = Location(id="3", city="Twin Peaks", state="Washington",
-                         country="United States", latitude=47.9556626,
-                         longitude=-121.3809409)
-    db.session.add(location1)
-    db.session.commit()
-
-    pin1 = Pin(user_id=user_id[0], location_id="3", pin_type_id="2")
-
-    db.session.add(pin1)
-    db.session.commit()
-
 if __name__ == "__main__":
     # If running module interactively, it will be in a state of being
     # able to work with the database directly.
