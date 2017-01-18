@@ -3,7 +3,6 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request
 from flask import flash, redirect, session, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Location, Pin
 import os
 import bcrypt
@@ -20,7 +19,7 @@ maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 # Raises an error for when you use an undefined variable in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
-DebugToolbarExtension(app)
+# DebugToolbarExtension(app)
 
 
 @app.route('/')
@@ -220,24 +219,21 @@ def remove_pin():
     return jsonify(pin_data)
 
 
-# if __name__ == "__main__":
-#     # Set debug=True here, since it has to be True at the point
-#     # of invoking the DebugToolbarExtension
-
-#     connect_to_db(app)
-
-#     # Use the DebugToolbar
-#     DebugToolbarExtension(app)
-
-#     app.run(debug=True, host="0.0.0.0")
+@app.route("/error")
+def error():
+    raise Exception("Error!")
 
 
 if __name__ == "__main__":
     connect_to_db(app, os.environ.get("DATABASE_URL"))
 
     db.create_all(app=app)
-    
+
     DEBUG = "NO_DEBUG" not in os.environ
     PORT = int(os.environ.get("PORT", 5000))
 
     app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+
+
+
+
