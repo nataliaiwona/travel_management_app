@@ -46,11 +46,11 @@ def guest_login_process():
     user = User.query.filter_by(email=email).first()
 
     if not user:
-        flash("No such user, just click 'Submit'")
+        flash("No such user, click 'Submit'")
         return redirect("/guest_login")
 
     if not helper.check_pass(user, password):
-        flash("Incorrect password, just click 'Submit'")
+        flash("Incorrect password, click 'Submit'")
         return redirect("/guest_login")
 
     session["user_id"] = user.id
