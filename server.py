@@ -9,10 +9,10 @@ import bcrypt
 import helper
 
 app = Flask(__name__)
-app.secret_key = "MEMORY"
-# For Heroku
-# app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
-# app.config['MAPS_KEY'] = os.environ.get("GOOGLE_MAPS_API_KEY", "abcdefg")
+
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
+app.config['MAPS_KEY'] = os.environ.get("MAPS_SECRET_KEY", "abcdef")
+
 maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
 
